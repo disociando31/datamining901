@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Minería de Datos{% endblock %} · Proyecto de la materia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- ============================================================
+         BARRA DE MENÚ PRINCIPAL
+         Recorre la lista "etapas" (definida en contenido.py) para
+         dibujar cada etapa. Cuando una etapa tiene submenú (Etapa 1),
+         se despliega la lista de 8 puntos al pasar el mouse / al hacer
+         click (en móvil).
+    ============================================================= -->
+    <header class="topbar">
+        <a href="{{ url_for('main.index') }}" class="brand">
+            <span class="brand-mark">MD</span>
+            <span class="brand-text">Minería de Datos</span>
+        </a>
+
+        <nav class="menu-principal" aria-label="Menú principal">
+            <ul>
+                {% for etapa in etapas %}
+                <li class="menu-item {% if not etapa.activa %}menu-item--deshabilitada{% endif %}">
+                    {% if etapa.slug == 'etapa-1' and etapa.activa %}
+                        <button class="menu-toggle" aria-haspopup="true" aria-expanded="false">
+                            {{ etapa.nombre }}
+                            <span class="caret">▾</span>
+                        </button>
+                        <ul class="submenu">
+                            {% for sm in submenus_etapa_1 %}
+                            <li>
+                                <a href="{{ url_for('main.etapa1_submenu', slug=sm.slug) }}">
+                                    <span class="submenu-numero">{{ sm.numero }}</span>
+                                    <span class="submenu-texto">{{ sm.titulo }}</span>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <span class="menu-toggle menu-toggle--estatico" title="Próximamente">
+                            {{ etapa.nombre }}
+                        </span>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenido-pagina">
+        {% block contenido %}{% endblock %}
+    </main>
+
+    <footer class="pie-pagina">
+        <p>{{ info_proyecto.materia }} · {{ info_proyecto.titulo }}</p>
+    </footer>
+
+    <script>
+        // Comportamiento mínimo del menú desplegable: funciona con :hover
+        // en escritorio (ver style.css) y con click/touch en pantallas
+        // pequeñas, para que sea usable también en dispositivos móviles.
+        document.querySelectorAll('.menu-toggle').forEach(function (boton) {
+            if (boton.tagName !== 'BUTTON') return;
+            boton.addEventListener('click', function (evento) {
+                evento.stopPropagation();
+                var item = boton.closest('.menu-item');
+                var yaAbierto = item.classList.contains('abierto');
+
+                document.querySelectorAll('.menu-item.abierto').forEach(function (abierto) {
+                    abierto.classList.remove('abierto');
+                });
+
+                if (!yaAbierto) {
+                    item.classList.add('abierto');
+                    boton.setAttribute('aria-expanded', 'true');
+                } else {
+                    boton.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+
+        document.addEventListener('click', function () {
+            document.querySelectorAll('.menu-item.abierto').forEach(function (abierto) {
+                abierto.classList.remove('abierto');
+                var b = abierto.querySelector('.menu-toggle');
+                if (b) b.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
+</body>
+</html>
