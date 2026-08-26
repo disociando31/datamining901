@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block titulo %}Página no encontrada{% endblock %}
+
+{% block contenido %}
+<section class="error-404">
+    <p class="portada-eyebrow">// error: registro_no_encontrado</p>
+    <h1>404</h1>
+    <p>No encontramos ese submenú. Vuelve al inicio y navega desde el menú "Etapa 1".</p>
+    <a href="{{ url_for('main.index') }}" class="boton-primario">Volver al inicio →</a>
+</section>
+{% endblock %}

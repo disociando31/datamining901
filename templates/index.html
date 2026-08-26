@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block titulo %}Inicio{% endblock %}
+
+{% block contenido %}
+<section class="portada">
+    <p class="portada-eyebrow">// dataset: proyecto_academico.csv</p>
+
+    <h1 class="portada-titulo">Minería de Datos</h1>
+    <p class="portada-subtitulo">{{ info.titulo }}</p>
+
+    <div class="portada-tabla">
+        <div class="portada-tabla-cabecera">
+            <span>#</span>
+            <span>Integrante</span>
+        </div>
+        {% for participante in info.participantes %}
+        <div class="portada-tabla-fila">
+            <span class="fila-index">{{ '%02d'|format(loop.index) }}</span>
+            <span class="fila-nombre">{{ participante }}</span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <a href="{{ url_for('main.etapa1_submenu', slug='problema-y-contexto') }}" class="boton-primario">
+        Ver Etapa 1 →
+    </a>
+</section>
+{% endblock %}
