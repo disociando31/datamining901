@@ -30,7 +30,7 @@ Cómo editar tu contenido:
 # -----------------------------------------------------------------------
 INFO_PROYECTO = {
     "materia": "Minería de Datos",
-    "titulo": "Contratación publica y ejecución de recursos",
+    "titulo": "Contratación Pública y Gestión de Recursos: Identificación de Patrones y Riesgos",
     # Agrega o quita nombres según el número real de integrantes.
     "participantes": [
         "David Santiago Arias Ramirez",
@@ -71,28 +71,62 @@ SUBMENUS_ETAPA_1 = [
         "bloques": [
             {
                 "tipo": "texto",
-                "subtitulo": "Descripción del problema",
+                "subtitulo": "Contexto general",
                 "contenido": (
-                    "Escribe aquí el problema que motiva el proyecto: ¿qué situación "
-                    "actual se quiere entender, mejorar o resolver mediante minería "
-                    "de datos?"
+                    "La contratación pública es el mecanismo mediante el cual los "
+                    "gobiernos adquieren bienes, servicios y obras usando recursos "
+                    "públicos. Representa entre el 12% y el 20% del PIB en la mayoría "
+                    "de países (OCDE), lo que la convierte en un área crítica para la "
+                    "eficiencia del gasto, la transparencia y la lucha contra la "
+                    "corrupción. A nivel global, iniciativas como el Open Contracting "
+                    "Data Standard (OCDS) buscan estandarizar y abrir estos datos. En "
+                    "Colombia, la plataforma SECOP (Sistema Electrónico de "
+                    "Contratación Pública) centraliza los procesos de contratación "
+                    "estatal, generando grandes volúmenes de datos susceptibles de "
+                    "análisis."
                 ),
             },
             {
                 "tipo": "texto",
-                "subtitulo": "Contexto",
+                "subtitulo": "Descripción del problema",
                 "contenido": (
-                    "Escribe aquí el contexto: sector, organización, población o "
-                    "fenómeno estudiado, y por qué es relevante analizarlo en este "
-                    "momento."
+                    "Existe una asimetría entre el volumen de datos abiertos de "
+                    "contratación pública disponibles y su uso efectivo para "
+                    "identificar patrones de riesgo, ineficiencia o irregularidad en "
+                    "la asignación de recursos públicos. Muchas entidades "
+                    "territoriales no cuentan con herramientas analíticas que les "
+                    "permitan comparar su desempeño contractual frente a estándares "
+                    "nacionales o internacionales, ni detectar anomalías (sobrecostos, "
+                    "concentración de proveedores, retrasos, modalidades de "
+                    "contratación atípicas)."
+                ),
+            },
+            {
+                "tipo": "texto",
+                "subtitulo": "Análisis por niveles",
+                "contenido": (
+                    "Global: estándares de datos abiertos de contratación (OCDS), "
+                    "índices de transparencia (Open Contracting Partnership, Banco "
+                    "Mundial - Procurement) y comparación entre países en eficiencia "
+                    "y riesgo de corrupción en compras públicas.\n\n"
+                    "Nacional (Colombia): datos de SECOP I y II, Colombia Compra "
+                    "Eficiente, análisis de modalidades de contratación, entidades "
+                    "contratantes, montos y proveedores frecuentes.\n\n"
+                    "Regional: comportamiento contractual por departamento/municipio "
+                    "(concentración de contratos, entidades con mayor gasto, "
+                    "disparidades regionales en ejecución de recursos)."
                 ),
             },
             {
                 "tipo": "texto",
                 "subtitulo": "Justificación",
                 "contenido": (
-                    "Escribe aquí por qué vale la pena resolver este problema y qué "
-                    "impacto tendría encontrar una solución o respuesta."
+                    "Identificar patrones y factores de riesgo en la contratación "
+                    "pública permite fortalecer la transparencia, optimizar el uso de "
+                    "recursos públicos y generar alertas tempranas frente a posibles "
+                    "irregularidades. El impacto potencial abarca desde el diseño de "
+                    "políticas públicas hasta el desarrollo de herramientas de "
+                    "control y vigilancia ciudadana."
                 ),
             },
         ],
@@ -106,15 +140,43 @@ SUBMENUS_ETAPA_1 = [
             {
                 "tipo": "texto",
                 "subtitulo": "Pregunta principal",
-                "contenido": "Escribe aquí la pregunta principal de investigación del proyecto.",
+                "contenido": (
+                    "¿Qué patrones y factores de riesgo se pueden identificar en los "
+                    "procesos de contratación pública mediante técnicas de minería "
+                    "de datos?"
+                ),
             },
             {
                 "tipo": "texto",
                 "subtitulo": "Preguntas secundarias",
                 "contenido": (
-                    "1. Escribe aquí la primera pregunta secundaria.\n"
-                    "2. Escribe aquí la segunda pregunta secundaria.\n"
-                    "3. Escribe aquí la tercera pregunta secundaria."
+                    "1. ¿Cuáles son las modalidades de contratación más utilizadas en "
+                    "Colombia y cómo varían entre departamentos/regiones?\n"
+                    "2. ¿Existe concentración de contratos en un número reducido de "
+                    "proveedores (posible indicador de riesgo de corrupción o falta "
+                    "de competencia)?\n"
+                    "3. ¿Qué relación existe entre el monto de los contratos, el tipo "
+                    "de entidad contratante y el tiempo de ejecución o retrasos?\n"
+                    "4. ¿Cómo se compara el nivel de apertura y estandarización de "
+                    "los datos de contratación colombianos frente a los estándares "
+                    "globales (OCDS)?\n"
+                    "5. ¿Qué sectores (salud, infraestructura, educación, etc.) "
+                    "concentran mayor volumen de recursos y cómo ha evolucionado "
+                    "esto en el tiempo?"
+                ),
+            },
+            {
+                "tipo": "texto",
+                "subtitulo": "Conocimiento esperado",
+                "contenido": (
+                    "Se espera identificar patrones de concentración de proveedores y "
+                    "entidades (clustering), anomalías o outliers en montos y plazos "
+                    "que sugieran riesgo (detección de anomalías), relaciones entre "
+                    "variables como tipo de entidad, sector, modalidad y monto "
+                    "(asociación/correlación), tendencias temporales en el gasto "
+                    "público por sector y región, y comparativos entre el desempeño "
+                    "de Colombia y estándares/benchmarks globales, así como entre "
+                    "regiones dentro del país."
                 ),
             },
         ],
