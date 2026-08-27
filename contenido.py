@@ -30,12 +30,13 @@ Cómo editar tu contenido:
 # -----------------------------------------------------------------------
 INFO_PROYECTO = {
     "materia": "Minería de Datos",
-    "titulo": "Proyecto de la materia",
+    "titulo": "Contratación publica y ejecución de recursos",
     # Agrega o quita nombres según el número real de integrantes.
     "participantes": [
-        "Nombre Apellido 1",
-        "Nombre Apellido 2",
-        "Nombre Apellido 3",
+        "David Santiago Arias Ramirez",
+        "Ian Andres Galindo Bejarano",
+        "Juan Pablo Villaraga Espitea",
+        "Edwin Stiven Leal"
     ],
 }
 
