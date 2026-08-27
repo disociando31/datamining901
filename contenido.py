@@ -33,9 +33,11 @@ INFO_PROYECTO = {
     "titulo": "Contratación Pública y Gestión de Recursos: Identificación de Patrones y Riesgos",
     # Agrega o quita nombres según el número real de integrantes.
     "participantes": [
-        "Nombre Apellido 1",
-        "Nombre Apellido 2",
-        "Nombre Apellido 3",
+        "David Santiago Arias Ramirez",
+        "Ian Andres Galindo Bejarano",
+        "Juan Pablo Villaraga Espitea",
+        "Edwin Stiven Leal"
+        
     ],
 }
 
