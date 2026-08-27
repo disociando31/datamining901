@@ -37,6 +37,7 @@ INFO_PROYECTO = {
         "Ian Andres Galindo Bejarano",
         "Juan Pablo Villaraga Espitea",
         "Edwin Stiven Leal"
+        
     ],
 }
 
