@@ -23,8 +23,8 @@ INFO_PROYECTO = {
     "participantes": [
         "David Santiago Arias Ramirez",
         "Ian Andres Galindo Bejarano",
-        "Juan Pablo Villaraga Espitea",
-        "Edwin Stiven Leal"
+        "Juan Pablo Villarraga Espitia",
+        "Edwin Estiben Leal Vargas"
     ],
 }
 
@@ -37,6 +37,11 @@ ETAPAS = [
         "nombre": "Etapa 1",
         "activa": True,
     },
+    {
+            "slug": "etapa-2",
+            "nombre": "Etapa 2",
+            "activa": True,
+        },
 ]
 
 # -----------------------------------------------------------------------
