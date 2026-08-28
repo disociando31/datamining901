@@ -1,18 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-contenido.py
-=============================================================================
-Este archivo centraliza TODA la información de texto que se muestra en la
-aplicación (nombre del proyecto, participantes y el contenido de cada uno
-de los 8 submenús de la "Etapa 1").
 
-NOTA DE VERSIÓN: se añadió trazabilidad explícita de fuentes (URLs directas,
-enlaces de consulta y un bloque de "Referencias" al final de cada submenú
-donde aplica) para reforzar el criterio de "Diccionario de datos y
-trazabilidad" y "Identificación y justificación de fuentes de información"
-de la rúbrica.
-=============================================================================
-"""
 
 # -----------------------------------------------------------------------
 # 1. INFORMACIÓN GENERAL DEL PROYECTO
@@ -23,8 +10,8 @@ INFO_PROYECTO = {
     "participantes": [
         "David Santiago Arias Ramirez",
         "Ian Andres Galindo Bejarano",
-        "Juan Pablo Villaraga Espitea",
-        "Edwin Stiven Leal"
+        "Juan Pablo Villarraga Espitia",
+        "Edwin Estiben Leal Vargas"
     ],
 }
 
@@ -37,6 +24,11 @@ ETAPAS = [
         "nombre": "Etapa 1",
         "activa": True,
     },
+    {
+            "slug": "etapa-2",
+            "nombre": "Etapa 2",
+            "activa": True,
+        },
 ]
 
 # -----------------------------------------------------------------------
@@ -816,33 +808,3 @@ SUBMENUS_ETAPA_1 = [
     },
 ]
 
-# -----------------------------------------------------------------------
-# 4. PARA AGREGAR UNA NUEVA ETAPA EN EL FUTURO (por ejemplo, Etapa 2)
-# -----------------------------------------------------------------------
-# 1) Agrega un nuevo diccionario a la lista ETAPAS.
-# 2) Crea una nueva lista de submenús, por ejemplo SUBMENUS_ETAPA_2.
-# 3) En routes.py, agrega una nueva ruta "/etapa2/<slug>" que use
-#    SUBMENUS_ETAPA_2.
-#
-# NOTA SOBRE EL NUEVO TIPO DE BLOQUE "enlaces":
-# Se añadió un tipo de bloque adicional, "enlaces", usado para listar
-# referencias/URLs de forma clara y clicable en la plantilla HTML. Su
-# estructura es:
-#   {
-#       "tipo": "enlaces",
-#       "subtitulo": "Texto del encabezado de la lista",
-#       "lista": [
-#           {"texto": "Nombre visible del enlace", "url": "https://..."},
-#           ...
-#       ],
-#   }
-# En routes.py / en la plantilla Jinja2 correspondiente, se debe iterar
-# sobre bloque["lista"] y renderizar cada elemento como:
-#   <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.texto }}</a>
-# También se añadieron columnas y filas de "URL" / "Enlace directo de
-# consulta" dentro de varias tablas existentes ("tipo": "tabla"); estas se
-# muestran igual que cualquier otra celda, pero conviene que la plantilla
-# detecte celdas que empiecen por "http" y las renderice como enlaces
-# clicables automáticamente, por ejemplo:
-#   {% if celda.startswith('http') %}<a href="{{ celda }}" target="_blank">{{ celda }}</a>
-#   {% else %}{{ celda }}{% endif %}
