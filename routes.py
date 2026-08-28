@@ -1,17 +1,5 @@
 # -*- coding: utf-8 -*-
 
-"""
-routes.py
-=============================================================================
-
-Define las rutas de la aplicación mediante un Blueprint de Flask.
-
-Rutas:
-    "/"                  -> Página de inicio
-    "/etapa1/<slug>"     -> Submenús de la Etapa 1
-
-=============================================================================
-"""
 
 from flask import Blueprint, render_template, abort
 
