@@ -14,9 +14,8 @@ deactivate () {
         unset _OLD_VIRTUAL_PYTHONHOME
     fi
 
-    # Call hash to forget past locations. Without forgetting
-    # past locations the $PATH changes we made may not be respected.
-    # See "man bash" for more details. hash is usually a builtin of your shell
+    # Call hash to forget past commands. Without forgetting
+    # past commands the $PATH changes we made may not be respected
     hash -r 2> /dev/null
 
     if [ -n "${_OLD_VIRTUAL_PS1:-}" ] ; then
@@ -37,18 +36,14 @@ deactivate () {
 deactivate nondestructive
 
 # on Windows, a path can contain colons and backslashes and has to be converted:
-case "$(uname)" in
-    CYGWIN*|MSYS*|MINGW*)
-        # transform D:\path\to\venv to /d/path/to/venv on MSYS and MINGW
-        # and to /cygdrive/d/path/to/venv on Cygwin
-        VIRTUAL_ENV=$(cygpath 'C:\Users\juanp\OneDrive\Documentos\GitHub\datamining901\venv')
-        export VIRTUAL_ENV
-        ;;
-    *)
-        # use the path as-is
-        export VIRTUAL_ENV='C:\Users\juanp\OneDrive\Documentos\GitHub\datamining901\venv'
-        ;;
-esac
+if [ "${OSTYPE:-}" = "cygwin" ] || [ "${OSTYPE:-}" = "msys" ] ; then
+    # transform D:\path\to\venv to /d/path/to/venv on MSYS
+    # and to /cygdrive/d/path/to/venv on Cygwin
+    export VIRTUAL_ENV=$(cygpath "C:\Users\Iangb\Documents\GitHub\datamining901\venv")
+else
+    # use the path as-is
+    export VIRTUAL_ENV="C:\Users\Iangb\Documents\GitHub\datamining901\venv"
+fi
 
 _OLD_VIRTUAL_PATH="$PATH"
 PATH="$VIRTUAL_ENV/"Scripts":$PATH"
@@ -73,4 +68,4 @@ fi
 
 # Call hash to forget past commands. Without forgetting
 # past commands the $PATH changes we made may not be respected
-hash -r 2> /dev/null
+hash -r 2> /dev/null || true
