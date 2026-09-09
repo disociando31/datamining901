@@ -3,7 +3,8 @@
 
 from flask import Blueprint, render_template, abort
 
-from contenido import INFO_PROYECTO, ETAPAS, SUBMENUS_ETAPA_1
+from contenido import INFO_PROYECTO, ETAPAS
+from submenu import SUBMENUS_ETAPA_1
 
 
 main_bp = Blueprint("main", __name__)

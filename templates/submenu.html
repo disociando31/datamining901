@@ -13,6 +13,23 @@
         <span>{{ submenu.titulo }}</span>
     </nav>
 
+    <nav class="selector-etapa" aria-label="Partes de la Etapa 1">
+        <div class="selector-etapa-cabecera">
+            <span class="selector-etapa-kicker">Navegación</span>
+            <h2>Partes de la Etapa 1</h2>
+        </div>
+        <div class="selector-etapa-lista">
+            {% for sm in submenus_etapa_1 %}
+            <a class="selector-etapa-link {% if sm.slug == submenu.slug %}selector-etapa-link--activo{% endif %}"
+               href="{{ url_for('main.etapa1_submenu', slug=sm.slug) }}"
+               {% if sm.slug == submenu.slug %}aria-current="page"{% endif %}>
+                <span class="selector-etapa-numero">{{ sm.numero }}</span>
+                <span>{{ sm.titulo }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </nav>
+
     <header class="submenu-cabecera">
         <span class="submenu-cabecera-numero">{{ submenu.numero }}</span>
         <div>
@@ -21,12 +38,6 @@
         </div>
     </header>
 
-    <!-- ============================================================
-         Recorre los "bloques" del submenú actual (definidos en
-         contenido.py). Cada bloque puede ser de tipo "texto" o "tabla".
-         Así, cada submenú puede tener tanta información como se
-         necesite para entenderse sin explicación oral adicional.
-    ============================================================= -->
     {% for bloque in submenu.bloques %}
         {% if bloque.tipo == 'texto' %}
             <section class="bloque bloque-texto">
@@ -61,7 +72,7 @@
         {% endif %}
     {% endfor %}
 
-    <!-- Navegación rápida entre los 8 puntos de la Etapa 1 -->
+    #Navegación rápida entre los 8 puntos de la Etapa 1
     <nav class="paginacion" aria-label="Navegación entre submenús">
         {% set indice = submenus_etapa_1.index(submenu) %}
         {% if indice > 0 %}
