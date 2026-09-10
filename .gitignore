@@ -4,3 +4,10 @@ venv/Scripts/pythonw.exe
 venv/Scripts/activate.bat
 venv/Scripts/pythonw.exe
 venv/Scripts/pythonw.exe
+*.pyc
+*.pyc
+__pycache__/contenido.cpython-313.pyc
+__pycache__/routes.cpython-313.pyc
+__pycache__/submenu.cpython-313.pyc
+__pycache__/submenu2.cpython-313.pyc
+*.pyc
