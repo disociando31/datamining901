@@ -2,26 +2,38 @@
 
 {% block titulo %}{{ submenu.titulo }}{% endblock %}
 
+{% block encabezado %}
+    <header class="topbar topbar-submenu">
+        <a href="{{ url_for('main.index') }}" class="boton-menu-principal">
+            Volver al menú principal
+        </a>
+        <h1 class="titulo-etapa">Etapa {{ etapa_numero }}</h1>
+        <img class="imagen-header"
+             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSUWQEL99ngj85ApjDNi3nvYTSrTV12wZ8PVpvIP-8vQ&s"
+             alt="Imagen del proyecto de minería de datos">
+    </header>
+{% endblock %}
+
 {% block contenido %}
 <article class="submenu-pagina">
 
     <nav class="ruta" aria-label="Ruta de navegación">
         <a href="{{ url_for('main.index') }}">Inicio</a>
         <span>/</span>
-        <span>Etapa 1</span>
+        <span>Etapa {{ etapa_numero }}</span>
         <span>/</span>
         <span>{{ submenu.titulo }}</span>
     </nav>
 
-    <nav class="selector-etapa" aria-label="Partes de la Etapa 1">
+    <nav class="selector-etapa" aria-label="Partes de la Etapa {{ etapa_numero }}">
         <div class="selector-etapa-cabecera">
             <span class="selector-etapa-kicker">Navegación</span>
-            <h2>Partes de la Etapa 1</h2>
+            <h2>Partes de la Etapa {{ etapa_numero }}</h2>
         </div>
         <div class="selector-etapa-lista">
-            {% for sm in submenus_etapa_1 %}
+            {% for sm in submenus %}
             <a class="selector-etapa-link {% if sm.slug == submenu.slug %}selector-etapa-link--activo{% endif %}"
-               href="{{ url_for('main.etapa1_submenu', slug=sm.slug) }}"
+               href="{{ url_for(ruta_endpoint, slug=sm.slug) }}"
                {% if sm.slug == submenu.slug %}aria-current="page"{% endif %}>
                 <span class="selector-etapa-numero">{{ sm.numero }}</span>
                 <span>{{ sm.titulo }}</span>
@@ -72,21 +84,21 @@
         {% endif %}
     {% endfor %}
 
-    #Navegación rápida entre los 8 puntos de la Etapa 1
+    {# Navegación rápida entre los puntos de la etapa actual. #}
     <nav class="paginacion" aria-label="Navegación entre submenús">
-        {% set indice = submenus_etapa_1.index(submenu) %}
+        {% set indice = submenus.index(submenu) %}
         {% if indice > 0 %}
-            {% set anterior = submenus_etapa_1[indice - 1] %}
-            <a class="paginacion-link" href="{{ url_for('main.etapa1_submenu', slug=anterior.slug) }}">
+            {% set anterior = submenus[indice - 1] %}
+            <a class="paginacion-link" href="{{ url_for(ruta_endpoint, slug=anterior.slug) }}">
                 ← {{ anterior.numero }} {{ anterior.titulo }}
             </a>
         {% else %}
             <span></span>
         {% endif %}
 
-        {% if indice < submenus_etapa_1|length - 1 %}
-            {% set siguiente = submenus_etapa_1[indice + 1] %}
-            <a class="paginacion-link paginacion-link--siguiente" href="{{ url_for('main.etapa1_submenu', slug=siguiente.slug) }}">
+        {% if indice < submenus|length - 1 %}
+            {% set siguiente = submenus[indice + 1] %}
+            <a class="paginacion-link paginacion-link--siguiente" href="{{ url_for(ruta_endpoint, slug=siguiente.slug) }}">
                 {{ siguiente.numero }} {{ siguiente.titulo }} →
             </a>
         {% endif %}

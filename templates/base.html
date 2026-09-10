@@ -8,16 +8,17 @@
 </head>
 <body>
 
-    <header class="topbar">
-        <a href="{{ url_for('main.index') }}" class="brand">
-            <span class="brand-mark">MD</span>
-            <span class="brand-text">Minería de Datos</span>
-        </a>
-        <img class="imagen-header"
-             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSUWQEL99ngj85ApjDNi3nvYTSrTV12wZ8PVpvIP-8vQ&s"
-             alt="Imagen del proyecto de minería de datos">
-
-    </header>
+    {% block encabezado %}
+        <header class="topbar">
+            <div class="brand">
+                <span class="brand-mark">MD</span>
+                <span class="brand-text">Minería de Datos</span>
+            </div>
+            <img class="imagen-header"
+                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSUWQEL99ngj85ApjDNi3nvYTSrTV12wZ8PVpvIP-8vQ&s"
+                 alt="Imagen del proyecto de minería de datos">
+        </header>
+    {% endblock %}
 
     <main class="contenido-pagina">
         {% block contenido %}{% endblock %}
