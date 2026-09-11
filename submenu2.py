@@ -61,39 +61,75 @@ SUBMENUS_ETAPA_2 = [
         "bloques": [
             {
                 "tipo": "texto",
-                "subtitulo": "Fuente de los datos",
+ "subtitulo": "Fuente de los datos",
                 "contenido": (
-                    "El conjunto de datos consolidado proviene del dataset oficial "
-                    "'SECOP II - Procesos de Contratación', publicado por Colombia "
-                    "Compra Eficiente (ANCP-CCE) en el Portal de Datos Abiertos del "
-                    "Estado Colombiano (datos.gov.co), dataset p6dx-8zbt, "
-                    "descargado mediante la API pública Socrata "
-                    "(https://www.datos.gov.co/resource/p6dx-8zbt.json). Este "
-                    "dataset corresponde a una fuente secundaria, de acceso "
-                    "abierto y con obligación legal de publicación bajo la Ley "
-                    "1712 de 2014."
+                    "Contratos.gov.co: plataforma que permite consultar procesos "
+                    "de contratación registrados por entidades públicas en Colombia.\n\n"
+                    
+                    "Datos Abiertos de Compras Públicas de Ecuador: plataforma "
+                    "que proporciona información sobre procesos y contrataciones "
+                    "realizadas por entidades públicas de Ecuador.\n\n"
+                    
+                    "SECOP II - Procesos de Contratación: conjunto de datos del "
+                    "portal de Datos Abiertos de Colombia que contiene información "
+                    "sobre procesos de contratación pública, entidades, proveedores, "
+                    "valores y modalidades de contratación.\n\n"
+                    
+                    "Datos Abiertos Bogotá: plataforma que ofrece información "
+                    "pública relacionada con la ejecución y seguimiento de recursos "
+                    "y procesos de las entidades del Distrito de Bogotá.\n\n"
+                    
+                    "Open Contracting Data Registry: repositorio que proporciona "
+                    "datos de contratación pública bajo estándares de datos abiertos, "
+                    "facilitando la consulta y análisis de información contractual.\n\n"
+                    
+                    "Estas fuentes permiten complementar la información sobre "
+                    "procesos, entidades, proveedores, valores, modalidades y "
+                    "ejecución contractual, proporcionando una base para el "
+                    "análisis y la construcción de variables de riesgo."
                 ),
             },
             {
                 "tipo": "texto",
                 "subtitulo": "Variables principales",
                 "contenido": (
-                    "El dataset contiene 34 variables, entre las cuales se "
-                    "destacan: identificación y trazabilidad del proceso "
+                    "El dataset contiene 34 variables, entre las cuales las "
+                    "principales son: identificación y trazabilidad del proceso\n\n "
+
                     "('id_del_proceso', 'referencia_del_proceso', 'urlproceso', "
-                    "'codigo_entidad'); ubicación de la entidad y del proveedor "
+                    "'codigo_entidad');\n\n"
+
+                    " ubicación de la entidad y del proveedor\n\n "
+
                     "('departamento_entidad', 'ciudad_entidad', "
-                    "'departamento_proveedor', 'ciudad_proveedor'); "
-                    "caracterización del proceso ('modalidad_de_contratacion', "
+                    "'departamento_proveedor', 'ciudad_proveedor'); \n\n"
+
+                    "caracterización del proceso\n\n"
+
+                    " ('modalidad_de_contratacion', "
                     "'tipo_de_contrato', 'subtipo_de_contrato', "
                     "'codigo_principal_de_categoria', 'fase', "
-                    "'estado_del_procedimiento', 'adjudicado'); variables "
-                    "económicas ('precio_base', 'valor_total_adjudicacion'); "
+                    "'estado_del_procedimiento', 'adjudicado');\n\n"
+
+                    "variables económicas\n\n"
+
+                    "('precio_base', 'valor_total_adjudicacion'); "
                     "variables temporales ('fecha_de_publicacion_del', "
-                    "'duracion', 'unidad_de_duracion'); y variables de "
-                    "competencia entre proveedores ('proveedores_invitados', "
-                    "'proveedores_con_invitacion', 'respuestas_al_procedimiento', "
-                    "'conteo_de_respuestas_a_ofertas', 'proveedores_unicos_con')."
+                    "'fecha_adjudicacion', 'duracion', 'unidad_de_duracion');\n\n "
+
+                    "variables de competencia entre proveedores \n\n"
+
+                    "('proveedores_invitados', 'proveedores_con_invitacion', "
+                    "'respuestas_al_procedimiento', "
+                    "'conteo_de_respuestas_a_ofertas', "
+                    "'proveedores_unicos_con');\n\n"
+
+                    " información del adjudicador y proveedor\n\n"
+
+                    " ('nombre_del_adjudicador', "
+                    "'nit_del_proveedor_adjudicado'); y variables relacionadas "
+                    "con la justificación de la contratación "
+                    "('justificacion_en_modalidad_de')."
                 ),
             },
             {
@@ -614,7 +650,9 @@ SUBMENUS_ETAPA_2 = [
                     {"texto": "API Socrata (SODA) del dataset SECOP II", "url": "https://www.datos.gov.co/resource/p6dx-8zbt.json"},
                     {"texto": "Codificación DIVIPOLA (DANE) — departamentos y municipios", "url": "https://geoportal.dane.gov.co/laboratorio/codificacion-divipola/"},
                     {"texto": "Colombia Compra Eficiente — sitio institucional", "url": "https://www.colombiacompra.gov.co/"},
-                    {"texto": "Banco de la República — Tasa Representativa del Mercado (TRM)", "url": "https://www.banrep.gov.co/es/estadisticas/trm"},
+                    {"texto": "Open contracting partnership", "url": "https://data.open-contracting.org/es/publication/61"},
+                    {"texto": "Datos Abiertos de Compras Públicas de Ecuador", "url": "https://datosabiertos.compraspublicas.gob.ec/PLATAFORMA/datos-abiertos"},
+                    {"texto": "Contratos públicos - Gobernación de Cundinamarca", "url": "https://www.contratos.gov.co/consultas/resultadoListadoProcesos.jsp?entidad=225000001&desdeFomulario=true#"},
                 ],
             },
             {
@@ -625,6 +663,6 @@ SUBMENUS_ETAPA_2 = [
                     {"texto": "Ley 1581 de 2012 — Protección de Datos Personales", "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=49981"},
                 ],
             },
-        ],
+        ],  
     },
 ]
