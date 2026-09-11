@@ -429,7 +429,39 @@ table {
     border-collapse: collapse;
     font-size: 0.92rem;
 }
+.lista-enlaces {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
+.enlace-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.enlace-item::before {
+    content: "→";
+    color: var(--color-accent);
+    font-family: var(--fuente-mono);
+    flex-shrink: 0;
+}
+
+.enlace-link {
+    color: var(--color-text);
+    border-bottom: 1px dashed var(--color-border);
+    transition: color 0.15s ease, border-color 0.15s ease;
+    word-break: break-word;
+}
+
+.enlace-link:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
 thead th {
     text-align: left;
     font-family: var(--fuente-mono);

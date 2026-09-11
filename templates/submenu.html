@@ -81,6 +81,17 @@
                     </table>
                 </div>
             </section>
+            {% elif bloque.tipo == 'enlaces' %}
+            <section class="bloque bloque-enlaces">
+                <h2>{{ bloque.subtitulo }}</h2>
+                <ul class="lista-enlaces">
+                    {% for item in bloque.lista %}
+                    <li class="enlace-item">
+                        <a class="enlace-link" href="{{ item.url }}" target="_blank" rel="noopener">{{ item.texto }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
         {% endif %}
     {% endfor %}
 
