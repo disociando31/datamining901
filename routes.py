@@ -6,6 +6,7 @@ from flask import Blueprint, render_template, abort
 from contenido import INFO_PROYECTO, ETAPAS
 from submenu import SUBMENUS_ETAPA_1
 from submenu2 import SUBMENUS_ETAPA_2
+from submenu3 import SUBMENUS_ETAPA_3
 
 
 main_bp = Blueprint("main", __name__)
@@ -96,6 +97,29 @@ def etapa2_submenu(slug):
     )
 
 
+@main_bp.route("/etapa3/<string:slug>")
+def etapa3_submenu(slug):
+    """
+    Muestra una sección específica de la Etapa 3.
+    """
+
+    submenu = _buscar_submenu(
+        slug,
+        SUBMENUS_ETAPA_3
+    )
+
+    if submenu is None:
+        abort(404)
+
+    return render_template(
+        "submenu.html",
+        submenu=submenu,
+        etapa_numero=3,
+        submenus=SUBMENUS_ETAPA_3,
+        ruta_endpoint="main.etapa3_submenu",
+    )
+
+
 @main_bp.app_context_processor
 def inyectar_datos_globales():
     """
@@ -106,6 +130,7 @@ def inyectar_datos_globales():
         "etapas": ETAPAS,
         "submenus_etapa_1": SUBMENUS_ETAPA_1,
         "submenus_etapa_2": SUBMENUS_ETAPA_2,
+        "submenus_etapa_3": SUBMENUS_ETAPA_3,
         "info_proyecto": INFO_PROYECTO,
     }
 

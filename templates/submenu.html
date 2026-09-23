@@ -92,6 +92,24 @@
                     {% endfor %}
                 </ul>
             </section>
+        {% elif bloque.tipo == 'video' %}
+            <section class="bloque bloque-video">
+                <h2>{{ bloque.subtitulo }}</h2>
+                {% if bloque.url %}
+                    <div class="video-marco">
+                        <iframe
+                            src="{{ bloque.url }}"
+                            title="{{ bloque.subtitulo }}"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                {% else %}
+                    <div class="video-placeholder" role="status">
+                        <span>Video por hacer</span>
+                    </div>
+                {% endif %}
+            </section>
         {% endif %}
     {% endfor %}
 
