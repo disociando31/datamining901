@@ -54,14 +54,14 @@ COLUMNS = [
 
 
 # Cuota de registros por año.
-# Total: 10.000 registros.
+# Total: 1.000.000 registros.
 CUOTAS_ANUALES = {
-    2020: 1667,
-    2021: 1667,
-    2022: 1667,
-    2023: 1667,
-    2024: 1666,
-    2025: 1666,
+    2020: 166667,
+    2021: 166667,
+    2022: 166667,
+    2023: 166667,
+    2024: 166666,
+    2025: 166666,
 }
 
 
@@ -214,9 +214,6 @@ def descargar():
     # En esta Etapa 1 NO eliminamos duplicados.
     # La rúbrica solicita diagnosticar la calidad inicial,
     # por lo que se conservan para su posterior análisis.
-
-    # Garantizar máximo 10.000 registros
-    df_raw = df_raw.head(10000)
 
     # ========================================================
     # GUARDAR DATASET RAW
