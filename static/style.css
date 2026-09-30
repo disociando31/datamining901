@@ -463,6 +463,33 @@ table {
     border-color: var(--color-accent);
 }
 
+.enlace-drive {
+    color: var(--color-text-muted);
+}
+
+.captura-muestra {
+    margin: 0;
+}
+
+.captura-muestra img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--color-border);
+}
+
+.captura-placeholder {
+    display: grid;
+    min-height: 12rem;
+    place-items: center;
+    border: 1px dashed var(--color-border);
+    background: var(--color-surface-alt);
+    color: var(--color-text-muted);
+    font-family: var(--fuente-mono);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
 .video-marco,
 .video-placeholder {
     width: 100%;

@@ -38,16 +38,16 @@ SUBMENUS_ETAPA_3 = [
                     "lote no genere duplicidad.\n\n"
                     "3. Desplegar y sustentar los resultados del proyecto:\n"
                     "Publicar en la sección de la etapa 3 de la aplicación Flask "
-                    "un informe técnico detallado y un video de demostración, "
-                    "los cuales deben evidenciar el paso a paso de la "
-                    "configuración en SSIS, la comparación de calidad entre "
-                    "iteraciones y las mejoras obtenidas."
+                    "un informe técnico detallado, un enlace a Drive con los "
+                    "archivos del proyecto y una captura de muestra, como "
+                    "evidencia de la configuración en SSIS, la comparación de "
+                    "calidad entre iteraciones y las mejoras obtenidas."
                 ),
             },
         ],
     },
     {
-        "slug": "proceso-de-tratamiento-en-ssis",
+        "slug": "proceso-tratamiento-ssis",
         "numero": "02",
         "titulo": "Proceso de tratamiento en SSIS",
         "resumen": "",
@@ -57,11 +57,9 @@ SUBMENUS_ETAPA_3 = [
                 "subtitulo": "Estructura y orden del flujo",
                 "contenido": (
                     "El paquete SSIS (Package.dtsx) tiene un Control Flow con una "
-                    "sola tarea, un Data Flow Task, donde ocurre todo el tratamiento. "
-                    "Antes de SSIS, un script de Python en Google Colab hizo la "
-                    "limpieza inicial y creó las banderas de riesgo; el archivo "
-                    "secop_ii_limpio_para_ssis.csv, con 9.792 registros y 59 "
-                    "columnas, es la entrada del flujo."
+                    "sola tarea Data Flow Task, donde ocurre el tratamiento. "
+                    "El proceso parte de secop_ii_limpio_para_ssis.csv, con "
+                    "9.792 registros y 59 columnas."
                 ),
             },
             {
@@ -70,12 +68,12 @@ SUBMENUS_ETAPA_3 = [
                 "encabezados": ["Etapa", "Componente y función"],
                 "filas": [
                     ["Origen", "Flat File Source lee el CSV mediante un administrador de conexión de archivo plano."],
-                    ["Nulos", "Conditional Split separa los registros con nulos y Derived Column los corrige."],
+                    ["Nulos", "Conditional Split separa los registros con nulos; Derived Column los corrige y renombra columnas con nombres inconsistentes."],
                     ["Duplicados", "Sort elimina las filas repetidas."],
-                    ["Formatos", "Derived Column normaliza texto, fechas y montos."],
-                    ["Tipos de dato", "Data Conversion ajusta los tipos para el paso de CSV a Excel."],
-                    ["Unión", "Union All reúne el flujo corregido con los registros válidos."],
-                    ["Destino", "Excel Destination genera Datos_Limpios.xlsx y Rechazados.xlsx."],
+                    ["Formatos", "Derived Column normaliza texto (UPPER y TRIM), fechas y montos."],
+                    ["Tipos de dato", "Data Conversion ajusta los tipos al pasar de CSV a Excel."],
+                    ["Unión", "Union All reúne el flujo corregido con el de registros válidos."],
+                    ["Destino", "Excel Destination escribe los datos tratados en Datos_Limpios.xlsx y los registros enviados a revisión en Rechazados.xlsx."],
                 ],
             },
         ],
@@ -90,17 +88,10 @@ SUBMENUS_ETAPA_3 = [
                 "tipo": "texto",
                 "subtitulo": "Herramientas utilizadas y función de cada una en el flujo de limpieza",
                 "contenido": (
-                    "El tratamiento se hizo en dos herramientas. Primero, un script de "
-                    "Python (pandas) ejecutado en Google Colab limpió el archivo crudo "
-                    "secop_ii_raw.csv, creó las banderas de riesgo y exportó "
-                    "secop_ii_limpio_para_ssis.csv (9.792 registros y 59 columnas). "
                     "Luego, un paquete SSIS (Package.dtsx) con un Data Flow Task "
                     "reproduce el flujo ETL con componentes equivalentes y entrega "
-                    "Datos_Limpios.xlsx y Rechazados.xlsx.\n\n"
+                    "Datos_Limpios.xlsx \n\n"
                     "Componentes:\n"
-                    "- Google Colab (pandas y numpy): lee el CSV crudo, elimina "
-                    "duplicados, trata nulos, ajusta tipos, calcula las banderas de "
-                    "riesgo y exporta el CSV limpio.\n"
                     "- Flat File Source: lee el CSV de SECOP II y expone las columnas "
                     "al flujo.\n"
                     "- Conditional Split: separa los registros con nulos en columnas "
@@ -119,22 +110,32 @@ SUBMENUS_ETAPA_3 = [
         ],
     },
     {
-        "slug": "tratamiento-de-valores-nulos-duplicados-formatos-inconsistentes-y-valores-invalidos-o-atipicos",
+        "slug": "tratamiento-nulos-duplicados-formatos",
         "numero": "04",
         "titulo": "Tratamiento de valores nulos, duplicados, formatos inconsistentes y valores inválidos o atípicos",
         "resumen": "",
         "bloques": [
             {
                 "tipo": "texto",
-                "subtitulo": "Tratamiento aplicado",
+                "subtitulo": "Qué problema se encontró y cómo se trató",
                 "contenido": (
-                    "El diagnóstico de la Etapa 2 identificó problemas de valores "
-                    "nulos, duplicados, formatos inconsistentes, valores inválidos "
-                    "y valores atípicos. Conditional Split y Derived Column "
-                    "tratan los nulos; Sort elimina duplicados; Derived Column "
-                    "normaliza texto, fechas y montos; Data Conversion ajusta los "
-                    "tipos de dato; y Python calcula flag_atipico_valor mediante "
-                    "el rango intercuartílico (IQR)."
+                    "El diagnóstico de la Etapa 2 identificó problemas en los "
+                    "datos de contratación pública. Para cada uno se definió "
+                    "una regla de tratamiento y se asignó un componente de SSIS.\n\n"
+                    "Valores nulos: Conditional Split detecta nulos con ISNULL; "
+                    "Derived Column los reemplaza con REPLACENULL. En Python se "
+                    "rellenaron nombre_del_procedimiento y "
+                    "justificacion_modalidad_de sin eliminar filas.\n\n"
+                    "Duplicados: en Sort se eliminaron filas repetidas y se "
+                    "conservó el último registro por id_del_proceso, ya que SECOP "
+                    "publica adendas como registros nuevos.\n\n"
+                    "Formatos inconsistentes: Derived Column normaliza espacios "
+                    "y mayúsculas con UPPER(TRIM()), convierte fechas con "
+                    "(DT_DATE) y limpia caracteres de los montos. codigo_entidad "
+                    "se trató como texto.\n\n"
+                    "Valores inválidos o atípicos: Data Conversion ajusta los "
+                    "tipos de montos y fechas; los valores extremos y en cero "
+                    "requieren revisión y no se excluyen automáticamente."
                 ),
             },
             {
@@ -142,33 +143,36 @@ SUBMENUS_ETAPA_3 = [
                 "subtitulo": "Evidencia en los datos de entrada",
                 "encabezados": ["Problema", "Lo que se observó", "Resultado"],
                 "filas": [
-                    ["Nulos", "7 columnas de fecha con nulos", "Tratados con Conditional Split y Derived Column"],
+                    ["Nulos", "7 columnas de fecha con nulos (por ejemplo, fecha_de_publicacion con 9.721 y fecha_adjudicacion con 9.103)", "Tratados con Conditional Split y Derived Column"],
                     ["Datos sin definir", "9.496 registros con 'No Definido' en el NIT del proveedor", "Unificados como 'NO DEFINIDO'"],
-                    ["Duplicados", "208 registros repetidos en el archivo crudo", "0 duplicados exactos y 0 por id_del_proceso"],
-                    ["Mayúsculas y espacios", "Celdas de texto sin mayúsculas y con espacios sobrantes", "Texto normalizado con UPPER(TRIM())"],
-                    ["Fechas", "Formato ISO y valores con T00:00:00.000", "Formato d/mm/aaaa en el resultado"],
+                    ["Duplicados", "Se revisaron registros repetidos antes del flujo SSIS", "La línea base de la etapa es de 9.792 registros"],
+                    ["Mayúsculas y espacios", "236.875 celdas de texto sin mayúsculas y 3 con espacios sobrantes", "Texto normalizado con UPPER(TRIM())"],
+                    ["Fechas", "Formato ISO, algunas con T00:00:00.000", "Formato d/mm/aaaa en el resultado"],
                     ["Montos inválidos", "323 valores de precio_base en 0", "Sin regla que los excluya"],
-                    ["Atípicos", "706 registros marcados por flag_atipico_valor", "Requiere revisión del umbral"],
+                    ["Valores extremos", "precio_base con un máximo de 599.971.286.503", "Sin tratamiento automático"],
+                    ["Atípicos", "706 registros marcados por flag_atipico_valor", "Requiere revisar el umbral"],
                 ],
             },
         ],
     },
     {
-        "slug": "reglas-aplicadas-y-ajustes-realizados",
+        "slug": "reglas-y-ajustes",
         "numero": "05",
         "titulo": "Reglas aplicadas y ajustes realizados",
+        "resumen": "",
         "bloques": [
             {
                 "tipo": "texto",
-                "subtitulo": "Reglas de limpieza y ajustes realizados",
+                "subtitulo": "Ajustes realizados",
                 "contenido": (
-                    "Las reglas provienen del diagnóstico de la Etapa 2. Las de "
-                    "limpieza se programaron en Python y tienen su equivalente en "
-                    "componentes de SSIS. Se trataron los duplicados por "
-                    "id_del_proceso, se conservaron las filas con nulos para "
-                    "mantener la trazabilidad, codigo_entidad se convirtió a texto, "
-                    "se excluyeron descripci_n_del_procedimiento y ppi, y se "
-                    "normalizaron las fechas al formato d/mm/aaaa."
+                    "SECOP publica adendas como registros nuevos; se conservó "
+                    "el último publicado según la fecha para dejar un registro "
+                    "por id_del_proceso. No se eliminaron filas con nulos para "
+                    "mantener la trazabilidad; se rellenaron con 'Sin nombre "
+                    "registrado' y 'Sin justificación'. codigo_entidad se trató "
+                    "como texto para evitar decimales (.0). También se excluyeron "
+                    "descripci_n_del_procedimiento y ppi, y las fechas se "
+                    "convirtieron al formato d/mm/aaaa."
                 ),
             },
             {
@@ -176,7 +180,7 @@ SUBMENUS_ETAPA_3 = [
                 "subtitulo": "Reglas aplicadas",
                 "encabezados": ["Regla", "Criterio", "Casos marcados"],
                 "filas": [
-                    ["Duplicados", "Fila exacta repetida o id_del_proceso repetido (se conserva el último)", "Registros: 10.000 a 9.792 (verificar en Colab)"],
+                    ["Duplicados", "Fila exacta o id_del_proceso repetido; se conserva el último", "9.792 registros al inicio de SSIS"],
                     ["Nulos", "Reemplazo por texto explícito en lugar de eliminar la fila", "Sin eliminación de filas"],
                     ["flag_consistencia_proveedores", "proveedores_unicos_con > proveedores_invitados", "628"],
                     ["flag_adjudicacion_cero", "Valor adjudicado 0, precio base > 0 y adjudicado = 'Si'", "0"],
@@ -187,12 +191,12 @@ SUBMENUS_ETAPA_3 = [
             {
                 "tipo": "texto",
                 "subtitulo": "Trazabilidad de la ejecución",
-                "contenido": "Entrada y salida de SSIS: 9.792 filas de entrada y 9.792 de salida.",
+                "contenido": "Entrada y salida de SSIS: 9.792 filas en cada etapa.",
             },
         ],
     },
     {
-        "slug": "conteos-de-registros",
+        "slug": "conteos-registros",
         "numero": "06",
         "titulo": "Conteos de registros recibidos, aceptados, duplicados y enviados a revisión",
         "resumen": "",
@@ -201,11 +205,11 @@ SUBMENUS_ETAPA_3 = [
                 "tipo": "texto",
                 "subtitulo": "Lectura de los conteos",
                 "contenido": (
-                    "El archivo crudo tenía 10.000 registros. Colab eliminó 208 "
-                    "registros repetidos y dejó 9.792 registros para SSIS. El "
-                    "flujo recibió y devolvió 9.792 registros, por lo que no se "
-                    "eliminaron filas durante esa etapa. La repetición del lote "
-                    "no debe duplicar registros porque Sort elimina repetidos."
+                    "La línea base de esta etapa es el archivo "
+                    "secop_ii_limpio_para_ssis.csv, con 9.792 registros y "
+                    "59 columnas. SSIS produjo 9.792 filas en la salida; sin "
+                    "embargo, 1.834 presentan pérdidas en precio_base y "
+                    "fecha_de_publicacion_del."
                 ),
             },
             {
@@ -213,20 +217,19 @@ SUBMENUS_ETAPA_3 = [
                 "subtitulo": "Conteos por etapa",
                 "encabezados": ["Etapa", "Registros", "Observación"],
                 "filas": [
-                    ["Archivo crudo (secop_ii_raw.csv)", "10.000", "Cifra del informe; verificar en Colab"],
-                    ["Duplicados eliminados en Colab", "208", "Exactos y por id_del_proceso"],
-                    ["Entrada a SSIS", "9.792", "59 columnas, 0 duplicados"],
-                    ["Salida final (Data_Final.xlsx)", "9.792", "55 columnas, 0 duplicados"],
-                    ["Aceptados con datos perdidos", "1.834", "Sin precio_base ni fecha_de_publicacion_del"],
+                    ["Entrada a SSIS (secop_ii_limpio_para_ssis.csv)", "9.792", "59 columnas"],
+                    ["Salida final (Data_Final.xlsx)", "9.792", "55 columnas; sin duplicados reportados"],
                 ],
             },
             {
                 "tipo": "texto",
                 "subtitulo": "Incidencia detectada",
                 "contenido": (
-                    "Los 1.834 registros aceptados con datos perdidos se detectaron "
-                    "al comparar la entrada con la salida: los valores existían en "
-                    "el CSV de entrada y desaparecieron durante el paso por SSIS."
+                    "Los 1.834 registros con datos perdidos se detectaron al "
+                    "comparar la entrada con la salida: precio_base y "
+                    "fecha_de_publicacion_del tenían valores en el CSV de entrada "
+                    "que desaparecieron durante el paso por SSIS. La ejecución "
+                    "conservó el total de filas, pero requiere corregir esta pérdida."
                 ),
             },
         ],
@@ -242,11 +245,11 @@ SUBMENUS_ETAPA_3 = [
                 "subtitulo": "Balance de la calidad lograda",
                 "contenido": (
                     "Se compara el estado de los datos a la entrada de SSIS, "
-                    "proveniente de Colab, con el resultado final. Se obtuvo un "
+                    "con el resultado final. Se obtuvo un "
                     "registro por proceso, se conservaron las filas para mantener "
                     "la trazabilidad, se generaron cuatro indicadores de riesgo, "
                     "se homogeneizó el texto y el proceso quedó reproducible "
-                    "mediante el script de Python y el paquete .dtsx."
+                    "mediante el paquete .dtsx."
                 ),
             },
             {
@@ -281,15 +284,26 @@ SUBMENUS_ETAPA_3 = [
         ],
     },
     {
-        "slug": "video-de-demostracion",
+        "slug": "archivos-del-proyecto",
         "numero": "08",
-        "titulo": "Video de demostración",
+        "titulo": "Archivos del proyecto",
         "resumen": "",
         "bloques": [
             {
-                "tipo": "video",
-                "subtitulo": "Video de demostración",
-                "url": "",
+                "tipo": "enlaces",
+                "subtitulo": "Carpeta de archivos en Google Drive",
+                "lista": [
+                    {
+                        "texto": "Abrir carpeta de archivos en Google Drive",
+                        "url": "https://drive.google.com/drive/folders/18HiXtIu1i0vYFe4d3ApXkE1afNN4F0pn?usp=sharing",
+                    },
+                ],
+            },
+            {
+                "tipo": "captura",
+                "subtitulo": "Muestra de los archivos",
+                "url": "/static/muestra-archivos-drive.png",
+                "alt": "Captura de muestra de los archivos del proyecto",
             },
         ],
     },
