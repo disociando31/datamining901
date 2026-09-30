@@ -87,10 +87,45 @@
                 <ul class="lista-enlaces">
                     {% for item in bloque.lista %}
                     <li class="enlace-item">
-                        <a class="enlace-link" href="{{ item.url }}" target="_blank" rel="noopener">{{ item.texto }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
+                            {% if item.url %}
+                            <a class="enlace-link" href="{{ item.url }}" target="_blank" rel="noopener">{{ item.texto }}</a>
+                            {% else %}
+                            <span class="enlace-drive" role="status">Enlace a Drive pendiente de agregar</span>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            {% elif bloque.tipo == 'captura' %}
+                <section class="bloque bloque-captura">
+                    <h2>{{ bloque.subtitulo }}</h2>
+                    {% if bloque.url %}
+                    <figure class="captura-muestra">
+                        <img src="{{ bloque.url }}" alt="{{ bloque.alt }}">
+                    </figure>
+                    {% else %}
+                    <div class="captura-placeholder" role="status">
+                        <span>Captura de muestra pendiente de agregar</span>
+                    </div>
+                    {% endif %}
+                </section>
+            {% elif bloque.tipo == 'video' %}
+            <section class="bloque bloque-video">
+                <h2>{{ bloque.subtitulo }}</h2>
+                {% if bloque.url %}
+                    <div class="video-marco">
+                        <iframe
+                            src="{{ bloque.url }}"
+                            title="{{ bloque.subtitulo }}"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                {% else %}
+                    <div class="video-placeholder" role="status">
+                        <span>Video por hacer</span>
+                    </div>
+                {% endif %}
             </section>
         {% endif %}
     {% endfor %}

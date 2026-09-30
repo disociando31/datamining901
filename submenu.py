@@ -4,7 +4,7 @@
 SUBMENUS_ETAPA_1 = [
     {
         "slug": "problema-y-contexto",
-        "número": "01",
+        "numero": "01",
         "titulo": "Problema y contexto",
         "resumen": "Descripción del problema que se aborda y el entorno en el que ocurre.",
         "bloques": [
@@ -73,7 +73,7 @@ SUBMENUS_ETAPA_1 = [
     },
     {
         "slug": "preguntas",
-        "número": "02",
+        "numero": "02",
         "titulo": "Pregunta principal y preguntas secundarias",
         "resumen": "Pregunta central del proyecto y las preguntas de apoyo que la complementan.",
         "bloques": [
@@ -123,7 +123,7 @@ SUBMENUS_ETAPA_1 = [
     },
     {
         "slug": "necesidades-de-información",
-        "número": "03",
+        "numero": "03",
         "titulo": "Necesidades de información",
         "resumen": "Que información se necesita recolectar para responder las preguntas planteadas.",
         "bloques": [
@@ -278,7 +278,7 @@ SUBMENUS_ETAPA_1 = [
     },
     {
         "slug": "fuentes-de-datos",
-        "número": "04",
+        "numero": "04",
         "titulo": "Fuentes de datos",
         "resumen": "Origen de los datos utilizados: de dónde provienen y como se obtuvieron.",
         "bloques": [
@@ -456,7 +456,7 @@ SUBMENUS_ETAPA_1 = [
     },
     {
         "slug": "dataset",
-        "número": "05",
+        "numero": "05",
         "titulo": "Dataset",
         "resumen": "Descripción general del conjunto de datos final utilizado en el proyecto.",
         "bloques": [
@@ -557,7 +557,7 @@ SUBMENUS_ETAPA_1 = [
     },
     {
         "slug": "diccionario-de-datos",
-        "número": "06",
+        "numero": "06",
         "titulo": "Diccionario de datos",
         "resumen": "Definicion de cada variable del dataset: nombre, tipo de dato y significado.",
         "bloques": [
@@ -656,7 +656,7 @@ SUBMENUS_ETAPA_1 = [
     },
     {
         "slug": "calidad-inicial-de-los-datos",
-        "número": "07",
+        "numero": "07",
         "titulo": "Calidad inicial de los datos",
         "resumen": "Primer diagnóstico de calidad: datos faltantes, duplicados, inconsistencias, etc.",
         "bloques": [
@@ -716,7 +716,7 @@ SUBMENUS_ETAPA_1 = [
     },
     {
         "slug": "limitaciones-y-consideraciones",
-        "número": "08",
+        "numero": "08",
         "titulo": "Limitaciones y consideraciones",
         "resumen": "Restricciones del proyecto y aspectos eticos o técnicos a tener en cuenta.",
         "bloques": [

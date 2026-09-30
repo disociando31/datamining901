@@ -4,3 +4,4 @@ venv/Scripts/pythonw.exe
 venv/Scripts/activate.bat
 venv/Scripts/pythonw.exe
 venv/Scripts/pythonw.exe
+*.pyc

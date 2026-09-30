@@ -25,8 +25,13 @@ ETAPAS = [
         "activa": True,
     },
     {
-            "slug": "etapa-2",
-            "nombre": "Etapa 2",
-            "activa": True,
-        },
+        "slug": "etapa-2",
+        "nombre": "Etapa 2",
+        "activa": True,
+    },
+    {
+        "slug": "etapa-3",
+        "nombre": "Etapa 3",
+        "activa": True,
+    },
 ]
