@@ -505,6 +505,15 @@ table {
     border: 0;
 }
 
+.powerbi-nota {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 12px 0 0;
+    padding-left: 12px;
+    border-left: 2px solid var(--color-accent);
+}
+
 .video-placeholder {
     display: grid;
     place-items: center;

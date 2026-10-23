@@ -50,6 +50,37 @@
         </div>
     </header>
 
+    {% if powerbi_page_name %}
+    <section class="bloque bloque-powerbi">
+        <h2>Informe interactivo: {{ submenu.titulo }}</h2>
+        {% if powerbi_page_url %}
+        <div class="video-marco">
+            <iframe
+                src="{{ powerbi_page_url }}"
+                title="Informe Power BI: {{ submenu.titulo }}"
+                allowfullscreen
+                loading="lazy">
+            </iframe>
+        </div>
+        <p>
+            Si el informe no se muestra, <a href="{{ powerbi_page_url }}" target="_blank" rel="noopener">ábrelo directamente en Power BI</a>.
+        </p>
+        <p class="powerbi-nota">
+            Los segmentadores actualizan los gráficos del informe. Los
+            conocimientos escritos debajo son interpretaciones de un corte
+            concreto y no cambian automáticamente al modificar esos filtros.
+        </p>
+        {% else %}
+        <div class="video-placeholder" role="status">
+            <span>
+                Publica el informe en Power BI y configura la URL de inserción
+                en la variable de entorno POWERBI_EMBED_URL para visualizarlo aquí.
+            </span>
+        </div>
+        {% endif %}
+    </section>
+    {% endif %}
+
     {% for bloque in submenu.bloques %}
         {% if bloque.tipo == 'texto' %}
             <section class="bloque bloque-texto">

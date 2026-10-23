@@ -1,15 +1,31 @@
 # -*- coding: utf-8 -*-
 
 
+import os
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+
 from flask import Blueprint, render_template, abort
 
 from contenido import INFO_PROYECTO, ETAPAS
 from submenu import SUBMENUS_ETAPA_1
 from submenu2 import SUBMENUS_ETAPA_2
 from submenu3 import SUBMENUS_ETAPA_3
+from submenu4 import SUBMENUS_ETAPA_4
 
 
 main_bp = Blueprint("main", __name__)
+
+PAGINAS_POWER_BI = {
+    "composicion-y-distribucion": "db66590281a598b19287",
+    "comparacion-territorial": "2c4aea5678e5d860631a",
+    "analisis-multivariado": "a3446f618144b6ce03d7",
+    "comportamiento-temporal": "eea5386badcb2c7496ea",
+}
+POWERBI_EMBED_URL_DEFAULT = (
+    "https://app.powerbi.com/view?r="
+    "eyJrIjoiZGM2N2NlNzEtZWFhMC00N2M0LTgwYTctMWMzODA4Yzc0NmVmIiwidCI6"
+    "IjA3ZGE2N2EwLTFmNDMtNGU4Yy05NzdmLTVmODhiNjQ3MGVlNiIsImMiOjR9"
+)
 
 
 def _buscar_submenu(slug: str, lista_submenus: list) -> dict | None:
@@ -28,6 +44,36 @@ def _buscar_submenu(slug: str, lista_submenus: list) -> dict | None:
             return submenu
 
     return None
+
+
+def _url_pagina_power_bi(page_name: str) -> str | None:
+    embed_url = os.environ.get(
+        "POWERBI_EMBED_URL",
+        POWERBI_EMBED_URL_DEFAULT,
+    ).strip()
+    if not embed_url:
+        return None
+
+    partes = urlsplit(embed_url)
+    if partes.scheme not in {"http", "https"} or not partes.netloc:
+        raise ValueError("POWERBI_EMBED_URL debe ser una URL HTTP o HTTPS válida.")
+
+    query = [
+        (clave, valor)
+        for clave, valor in parse_qsl(partes.query, keep_blank_values=True)
+        if clave != "pageName"
+    ]
+    query.append(("pageName", page_name))
+
+    return urlunsplit(
+        (
+            partes.scheme,
+            partes.netloc,
+            partes.path,
+            urlencode(query),
+            partes.fragment,
+        )
+    )
 
 
 @main_bp.route("/")
@@ -120,6 +166,38 @@ def etapa3_submenu(slug):
     )
 
 
+@main_bp.route("/etapa4/<string:slug>")
+def etapa4_submenu(slug):
+    """
+    Muestra una sección específica de la Etapa 4.
+    """
+
+    if slug == "objetivos":
+        slug = "conocimiento-evidente"
+
+    submenu = _buscar_submenu(
+        slug,
+        SUBMENUS_ETAPA_4
+    )
+
+    if submenu is None:
+        abort(404)
+
+    return render_template(
+        "submenu.html",
+        submenu=submenu,
+        etapa_numero=4,
+        submenus=SUBMENUS_ETAPA_4,
+        ruta_endpoint="main.etapa4_submenu",
+        powerbi_page_name=PAGINAS_POWER_BI.get(slug),
+        powerbi_page_url=(
+            _url_pagina_power_bi(PAGINAS_POWER_BI[slug])
+            if slug in PAGINAS_POWER_BI
+            else None
+        ),
+    )
+
+
 @main_bp.app_context_processor
 def inyectar_datos_globales():
     """
@@ -131,6 +209,7 @@ def inyectar_datos_globales():
         "submenus_etapa_1": SUBMENUS_ETAPA_1,
         "submenus_etapa_2": SUBMENUS_ETAPA_2,
         "submenus_etapa_3": SUBMENUS_ETAPA_3,
+        "submenus_etapa_4": SUBMENUS_ETAPA_4,
         "info_proyecto": INFO_PROYECTO,
     }
 
