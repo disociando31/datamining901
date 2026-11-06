@@ -2,15 +2,18 @@
 
 
 import os
+import sqlite3
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, abort, current_app, jsonify, render_template, request
 
 from contenido import INFO_PROYECTO, ETAPAS
 from submenu import SUBMENUS_ETAPA_1
 from submenu2 import SUBMENUS_ETAPA_2
 from submenu3 import SUBMENUS_ETAPA_3
 from submenu4 import SUBMENUS_ETAPA_4
+from submenu5 import SUBMENUS_ETAPA_5
+from queries.olap import InvalidSelection, VIEWS, overview_data, view_data
 
 
 main_bp = Blueprint("main", __name__)
@@ -198,6 +201,59 @@ def etapa4_submenu(slug):
     )
 
 
+@main_bp.route("/etapa5")
+def etapa5():
+    try:
+        resumen_etapa5 = overview_data()
+    except FileNotFoundError as error:
+        resumen_etapa5 = None
+        error_modelo = str(error)
+    else:
+        error_modelo = None
+    return render_template(
+        "etapa5/modelo.html",
+        etapa_numero=5,
+        submenus=SUBMENUS_ETAPA_5,
+        resumen_etapa5=resumen_etapa5,
+        error_modelo=error_modelo,
+    )
+
+
+@main_bp.route("/etapa5/explorar/<string:slug>")
+def etapa5_explorar(slug):
+    submenu = next(
+        (item for item in SUBMENUS_ETAPA_5 if item["slug"] == slug),
+        None,
+    )
+    if submenu is None or slug not in VIEWS:
+        abort(404)
+    return render_template(
+        "etapa5/explorar.html",
+        etapa_numero=5,
+        submenus=SUBMENUS_ETAPA_5,
+        submenu=submenu,
+        view_config=VIEWS[slug],
+    )
+
+
+@main_bp.route("/etapa5/api/<string:slug>")
+def etapa5_api(slug):
+    if slug not in VIEWS:
+        abort(404)
+    try:
+        payload = view_data(slug, request.args)
+    except InvalidSelection as error:
+        return jsonify({"error": str(error)}), 400
+    except FileNotFoundError as error:
+        return jsonify({"error": str(error)}), 503
+    except sqlite3.Error:
+        current_app.logger.exception("Error al consultar el modelo OLAP de Etapa 5.")
+        return jsonify(
+            {"error": "No se pudo consultar el modelo multidimensional."}
+        ), 500
+    return jsonify(payload)
+
+
 @main_bp.app_context_processor
 def inyectar_datos_globales():
     """
@@ -210,6 +266,7 @@ def inyectar_datos_globales():
         "submenus_etapa_2": SUBMENUS_ETAPA_2,
         "submenus_etapa_3": SUBMENUS_ETAPA_3,
         "submenus_etapa_4": SUBMENUS_ETAPA_4,
+        "submenus_etapa_5": SUBMENUS_ETAPA_5,
         "info_proyecto": INFO_PROYECTO,
     }
 

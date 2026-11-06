@@ -1,0 +1,601 @@
+{% extends "base.html" %}
+
+{% block titulo %}Etapa 5 · Modelo estrella{% endblock %}
+
+{% block encabezado %}
+<header class="topbar topbar-submenu">
+    <a href="{{ url_for('main.index') }}" class="boton-menu-principal">
+        Volver al menú
+    </a>
+    <h1 class="titulo-etapa">Etapa 5</h1>
+    <img class="imagen-header"
+         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSUWQEL99ngj85ApjDNi3nvYTSrTV12wZ8PVpvIP-8vQ&s"
+         alt="Imagen del proyecto de minería de datos">
+</header>
+{% endblock %}
+
+{% block contenido %}
+<article class="submenu-pagina etapa5-pagina">
+    <nav class="ruta" aria-label="Ruta de navegación">
+        <a href="{{ url_for('main.index') }}">Inicio</a>
+        <span>/</span>
+        <span>Etapa 5</span>
+        <span>/</span>
+        <span>Modelo estrella</span>
+    </nav>
+
+    {% set etapa5_inicio = true %}
+    {% set submenu = none %}
+    {% set siguiente = submenus[1] %}
+    {% include "etapa5/_nav.html" %}
+
+    <header class="submenu-cabecera">
+        <span class="submenu-cabecera-numero">01</span>
+        <div>
+            <h1>Panel de análisis multidimensional</h1>
+            <p class="submenu-resumen">
+                Indicadores y tendencias calculados desde las filas cargadas
+                en el modelo estrella de SECOP II Nacional.
+            </p>
+        </div>
+    </header>
+
+    {% if error_modelo %}
+    <section class="bloque etapa5-alerta" role="alert">
+        <h2>Modelo no disponible</h2>
+        <p>{{ error_modelo }}</p>
+    </section>
+    {% else %}
+    <section class="etapa5-dashboard" aria-label="Dashboard de Etapa 5">
+        <div class="etapa5-dashboard-encabezado">
+            <div>
+                <span class="etapa5-dashboard-eyebrow">SECOP II · MODELO ESTRELLA</span>
+                <h2>Resumen de contratación pública</h2>
+            </div>
+            <p>
+                {{ resumen_etapa5.dates.first_date }} — {{ resumen_etapa5.dates.last_date }}
+                <span>· Corte completo del modelo</span>
+            </p>
+        </div>
+
+        <div class="etapa5-dashboard-kpis">
+            <article class="etapa5-dashboard-card etapa5-dashboard-ring-card">
+                <div class="etapa5-dashboard-ring"
+                     style="--ring-value: {{ resumen_etapa5.dashboard.distinct_process_percent }}%">
+                    <span>{{ "%.1f"|format(resumen_etapa5.dashboard.distinct_process_percent) }}%</span>
+                </div>
+                <h3>IDs DISTINTOS / FILAS</h3>
+                <p>{{ "{:,}".format(resumen_etapa5.records.unique_processes).replace(",", ".") }}
+                    IDs distintos de {{ "{:,}".format(resumen_etapa5.records.record_count).replace(",", ".") }}
+                    filas; no equivale a porcentaje de filas únicas.</p>
+            </article>
+
+            <article class="etapa5-dashboard-card etapa5-dashboard-ring-card">
+                <div class="etapa5-dashboard-ring etapa5-dashboard-ring--secondary"
+                     style="--ring-value: {{ resumen_etapa5.dashboard.supplier_unknown_percent }}%">
+                    <span>{{ "%.1f"|format(resumen_etapa5.dashboard.supplier_unknown_percent) }}%</span>
+                </div>
+                <h3>NIT NO DEFINIDO</h3>
+                <p>{{ "{:,}".format(resumen_etapa5.supplier_nit_no_definido).replace(",", ".") }}
+                    filas de {{ "{:,}".format(resumen_etapa5.records.record_count).replace(",", ".") }}
+                    del hecho (categoría literal de la fuente; no incluye valores vacíos).</p>
+            </article>
+
+            <article class="etapa5-dashboard-card etapa5-dashboard-ring-card">
+                <div class="etapa5-dashboard-ring etapa5-dashboard-ring--tertiary"
+                     style="--ring-value: {{ resumen_etapa5.dashboard.source_duplicate_percent }}%">
+                    <span>{{ "%.2f"|format(resumen_etapa5.dashboard.source_duplicate_percent) }}%</span>
+                </div>
+                <h3>DUPLICADOS EXACTOS</h3>
+                <p>{{ resumen_etapa5.load.duplicados_exactos_omitidos }}
+                    omitidos de {{ "{:,}".format(resumen_etapa5.load.registros_csv).replace(",", ".") }}
+                    filas CSV.</p>
+            </article>
+
+            <article class="etapa5-dashboard-card etapa5-dashboard-kpi-highlight">
+                <h3>VALOR TOTAL ADJUDICADO</h3>
+                <span class="etapa5-dashboard-subtitle">Suma por fila · pesos colombianos</span>
+                <strong>${{ "{:,}".format(resumen_etapa5.records.awarded_cop|int).replace(",", ".") }}</strong>
+                <p>Valor registrado en el hecho; no representa pagos ni ejecución presupuestal.</p>
+            </article>
+
+            <article class="etapa5-dashboard-card etapa5-dashboard-progress">
+                <h3>MODALIDADES CON MÁS REGISTROS</h3>
+                <span class="etapa5-dashboard-subtitle">
+                    Participación sobre {{ "{:,}".format(resumen_etapa5.records.record_count).replace(",", ".") }}
+                    filas del hecho
+                </span>
+                {% for item in resumen_etapa5.top_modalities %}
+                <div class="etapa5-dashboard-progress-item">
+                    <div class="etapa5-dashboard-progress-label">
+                        <span>{{ item.label }}</span>
+                        <strong>{{ "{:,}".format(item.record_count).replace(",", ".") }}
+                            · {{ "%.1f"|format(item.share_percent) }}%</strong>
+                    </div>
+                    <div class="etapa5-dashboard-segments"
+                         role="img"
+                         aria-label="{{ item.label }}: {{ item.record_count }} filas, {{ '%.1f'|format(item.share_percent) }} por ciento del total">
+                        {% set active_segments = (item.share_percent * 0.24)|round(0, 'ceil')|int %}
+                        {% for segment in range(24) %}
+                        <span class="{% if segment < active_segments %}is-active{% endif %}"></span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </article>
+        </div>
+
+        <div class="etapa5-dashboard-analytics">
+            <article class="etapa5-dashboard-card etapa5-dashboard-trend">
+                <div class="etapa5-dashboard-card-heading">
+                    <div>
+                        <h3>PUBLICACIONES POR MES</h3>
+                        <p>Conteo de filas del hecho agrupado por año y mes</p>
+                    </div>
+                    <span>Máximo mensual: {{ resumen_etapa5.dashboard.monthly_chart.maximum }}</span>
+                </div>
+                {% set chart = resumen_etapa5.dashboard.monthly_chart %}
+                <div class="etapa5-dashboard-chart-scroll">
+                    <svg class="etapa5-dashboard-line-chart"
+                         viewBox="0 0 {{ chart.width }} {{ chart.height }}"
+                         role="img"
+                         aria-labelledby="etapa5-chart-title etapa5-chart-desc">
+                        <title id="etapa5-chart-title">Filas del hecho por mes de publicación</title>
+                        <desc id="etapa5-chart-desc">
+                            Serie mensual para {{ chart.points|length }} meses observados.
+                            Cada punto corresponde a un conteo consultado en SQLite.
+                        </desc>
+                        <defs>
+                            <linearGradient id="etapa5-line-gradient" x1="0" x2="1">
+                                <stop offset="0%" stop-color="var(--color-accent-strong)"/>
+                                <stop offset="55%" stop-color="var(--color-accent)"/>
+                                <stop offset="100%" stop-color="var(--color-amber)"/>
+                            </linearGradient>
+                            <linearGradient id="etapa5-area-gradient" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="var(--color-accent)" stop-opacity=".16"/>
+                                <stop offset="100%" stop-color="var(--color-accent)" stop-opacity=".02"/>
+                            </linearGradient>
+                        </defs>
+                        {% for fraction in [0.25, 0.5, 0.75, 1] %}
+                        {% set grid_y = chart.height - 20 - ((chart.height - 40) * fraction) %}
+                        <line x1="18" y1="{{ grid_y }}" x2="{{ chart.width - 18 }}" y2="{{ grid_y }}" class="etapa5-chart-gridline"/>
+                        <text x="0" y="{{ grid_y - 4 }}" class="etapa5-chart-axis-label">{{ (chart.maximum * fraction)|round|int }}</text>
+                        {% endfor %}
+                        <path d="{{ chart.area_path }}" class="etapa5-chart-area"/>
+                        <path d="{{ chart.line_path }}" class="etapa5-chart-line"/>
+                        {% for point in chart.points %}
+                        {% if loop.first or loop.last or loop.index0 % 12 == 0 %}
+                        <text x="{{ point.x }}" y="{{ chart.height - 2 }}" text-anchor="middle" class="etapa5-chart-axis-label">{{ point.label }}</text>
+                        {% endif %}
+                        <circle cx="{{ point.x }}" cy="{{ point.y }}" r="2.3" class="etapa5-chart-point">
+                            <title>{{ point.label }}: {{ point.records }} filas</title>
+                        </circle>
+                        {% endfor %}
+                    </svg>
+                </div>
+            </article>
+
+            <article class="etapa5-dashboard-card etapa5-dashboard-awarded-years">
+                <div class="etapa5-dashboard-card-heading">
+                    <div>
+                        <h3>VALOR ADJUDICADO POR AÑO</h3>
+                        <p>Participación sobre {{ "{:,}".format(resumen_etapa5.dashboard.annual_awarded_total|int).replace(",", ".") }} COP con año registrado</p>
+                    </div>
+                </div>
+                {% for year in resumen_etapa5.dashboard.annual %}
+                <div class="etapa5-dashboard-progress-item">
+                    <div class="etapa5-dashboard-progress-label">
+                        <span>{{ year.year }}</span>
+                        <strong>${{ "{:,}".format(year.awarded_cop|int).replace(",", ".") }}
+                            · {{ "%.1f"|format(year.awarded_share_percent) }}%</strong>
+                    </div>
+                    <div class="etapa5-dashboard-segments"
+                         role="img"
+                         aria-label="{{ year.year }}: {{ year.awarded_cop }} pesos adjudicados, {{ '%.1f'|format(year.awarded_share_percent) }} por ciento del valor adjudicado en años con fecha">
+                        {% set active_segments = (year.awarded_share_percent * 0.24)|round(0, 'ceil')|int %}
+                        {% for segment in range(24) %}
+                        <span class="{% if segment < active_segments %}is-active{% endif %}"></span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </article>
+        </div>
+
+        <div class="etapa5-dashboard-utilities">
+            <article class="etapa5-dashboard-card etapa5-dashboard-observation">
+                <h3>LECTURA DEL CORTE</h3>
+                <p class="etapa5-dashboard-key-observation">
+                    {{ resumen_etapa5.top_modalities[0].label }}
+                </p>
+                <p>
+                    Es la modalidad con más registros:
+                    {{ "{:,}".format(resumen_etapa5.top_modalities[0].record_count).replace(",", ".") }}
+                    filas ({{ "%.1f"|format(resumen_etapa5.top_modalities[0].share_percent) }}%
+                    del total).
+                </p>
+                <p>
+                    El departamento con más filas es
+                    <strong>{{ resumen_etapa5.top_department.label }}</strong>
+                    ({{ "{:,}".format(resumen_etapa5.top_department.record_count).replace(",", ".") }}
+                    filas). La asociación es descriptiva, no causal.
+                </p>
+            </article>
+
+            <article class="etapa5-dashboard-card etapa5-dashboard-calendar">
+                <div class="etapa5-dashboard-card-heading">
+                    <div>
+                        <h3>COBERTURA MENSUAL</h3>
+                        <p>Conteo de filas por año y mes de publicación</p>
+                    </div>
+                    <span>— sin registros en el corte</span>
+                </div>
+                <div class="etapa5-dashboard-calendar-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Año</th>
+                                {% for month in range(1, 13) %}
+                                <th scope="col">{{ "%02d"|format(month) }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for year in resumen_etapa5.dashboard.monthly_coverage %}
+                            <tr>
+                                <th scope="row">{{ year.year }}</th>
+                                {% for month in year.months %}
+                                <td>
+                                    <span class="{% if month.records %}has-records{% endif %}"
+                                          title="{{ year.year }}-{{ '%02d'|format(month.month) }}: {{ month.records }} filas">
+                                        {{ "{:,}".format(month.records).replace(",", ".") if month.records else "—" }}
+                                    </span>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+
+            <article class="etapa5-dashboard-card etapa5-dashboard-timeline">
+                <h3>PARTICIPACIÓN ANUAL</h3>
+                <p class="etapa5-dashboard-card-copy">
+                    Denominador: {{ "{:,}".format(resumen_etapa5.dashboard.annual_record_total).replace(",", ".") }}
+                    filas con año de publicación registrado.
+                </p>
+                <div class="etapa5-dashboard-timeline-rings">
+                    {% for year in resumen_etapa5.dashboard.annual %}
+                    <div class="etapa5-dashboard-year">
+                        <div class="etapa5-dashboard-small-ring"
+                             style="--ring-value: {{ year.share_percent }}%">
+                            <span>{{ "%.0f"|format(year.share_percent) }}%</span>
+                        </div>
+                        <strong>{{ year.year }}</strong>
+                        <small>{{ "{:,}".format(year.record_count).replace(",", ".") }} filas</small>
+                    </div>
+                    {% endfor %}
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="bloque">
+        <h2>Propósito y relación con la Etapa 4</h2>
+        <p>
+            La Etapa 4 describió la composición, el territorio, el tiempo y
+            algunos cruces de SECOP II. Esta etapa reorganiza las mismas
+            columnas observadas en dimensiones y medidas consultables, para
+            recalcular cada resumen cuando cambian filtros o nivel de detalle.
+            Las asociaciones son descriptivas: no prueban causalidad ni
+            irregularidades.
+        </p>
+    </section>
+
+    <aside class="etapa5-grano" aria-labelledby="etapa5-grano-titulo">
+        <h2 id="etapa5-grano-titulo">Unidad de análisis y granularidad del hecho</h2>
+        <p>
+            <strong>Unidad de análisis:</strong> el proceso de contratación
+            pública, identificado cuando la fuente proporciona un
+            <code>id_del_proceso</code>. Un proceso puede aparecer en más de
+            una fila y, por ello, no se cuenta como una fila única.
+        </p>
+        <p>
+            <strong>Granularidad del hecho:</strong> cada fila distinta del
+            CSV tratado después de excluir duplicados exactos. La tabla
+            <code>fact_proceso</code> conserva filas distintas aunque
+            compartan <code>id_del_proceso</code>; los conteos de filas,
+            procesos distintos y las sumas monetarias representan medidas
+            diferentes.
+        </p>
+    </aside>
+
+    <section class="bloque">
+        <h2>Modelo estrella</h2>
+        <div class="etapa5-star" role="img"
+             aria-label="Tabla de hechos Fact proceso conectada a cinco dimensiones: tiempo, entidad, territorio, contratación y proveedor">
+            <div class="etapa5-star-dims">
+                <article class="etapa5-star-dim">
+                    <strong>DimTiempo</strong>
+                    <span>Fecha · año · trimestre · mes · día</span>
+                </article>
+                <article class="etapa5-star-dim">
+                    <strong>DimEntidad</strong>
+                    <span>Código · NIT · nombre · orden</span>
+                </article>
+                <article class="etapa5-star-dim">
+                    <strong>DimTerritorio</strong>
+                    <span>Departamento · ciudad de entidad</span>
+                </article>
+                <article class="etapa5-star-fact">
+                    <strong>FactProceso</strong>
+                    <span>PK · 5 FK · importes · conteos · atributos</span>
+                </article>
+                <article class="etapa5-star-dim">
+                    <strong>DimContratación</strong>
+                    <span>Modalidad · tipo · fase · estado · adjudicado</span>
+                </article>
+                <article class="etapa5-star-dim">
+                    <strong>DimProveedor</strong>
+                    <span>NIT · nombre · departamento · ciudad</span>
+                </article>
+            </div>
+        </div>
+        <p class="etapa5-nota">
+            Cada relación llega desde una PK sustituta dimensional a una FK
+            del hecho. Los identificadores SECOP no se tratan como claves
+            únicas de fila.
+        </p>
+    </section>
+
+    <section class="bloque etapa5-diccionario" aria-labelledby="etapa5-diccionario-titulo">
+        <h2 id="etapa5-diccionario-titulo">Diccionario de datos del modelo</h2>
+        <p>
+            Cada clave foránea del hecho referencia una clave primaria
+            sustituta de dimensión. La clave natural única identifica la
+            combinación de atributos dimensionales cargada desde la fuente.
+        </p>
+        <div class="tabla-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Tabla</th>
+                        <th scope="col">Propósito</th>
+                        <th scope="col">Grano</th>
+                        <th scope="col">Claves primarias y foráneas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row"><code>fact_proceso</code></th>
+                        <td>Hechos y medidas de contratación tratados.</td>
+                        <td>Una fila distinta del CSV después de excluir duplicados exactos.</td>
+                        <td>
+                            PK <code>hecho_key</code>; FK
+                            <code>tiempo_key</code> → <code>dim_tiempo</code>,
+                            <code>entidad_key</code> → <code>dim_entidad</code>,
+                            <code>territorio_key</code> → <code>dim_territorio</code>,
+                            <code>contratacion_key</code> → <code>dim_contratacion</code>,
+                            <code>proveedor_key</code> → <code>dim_proveedor</code>.
+                            <code>huella_origen</code> y
+                            <code>numero_registro_origen</code> son únicos.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><code>dim_tiempo</code></th>
+                        <td>Contexto de fecha de publicación.</td>
+                        <td>Una combinación distinta de fecha, año, trimestre, mes y día.</td>
+                        <td>PK <code>tiempo_key</code>; FK entrante desde <code>fact_proceso.tiempo_key</code>.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><code>dim_entidad</code></th>
+                        <td>Identidad y orden de la entidad contratante.</td>
+                        <td>Una combinación distinta de código, NIT, nombre y orden de entidad.</td>
+                        <td>PK <code>entidad_key</code>; FK entrante desde <code>fact_proceso.entidad_key</code>.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><code>dim_territorio</code></th>
+                        <td>Ubicación reportada de la entidad.</td>
+                        <td>Una combinación distinta de departamento y ciudad de la entidad.</td>
+                        <td>PK <code>territorio_key</code>; FK entrante desde <code>fact_proceso.territorio_key</code>.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><code>dim_contratacion</code></th>
+                        <td>Características y estado del procedimiento contractual.</td>
+                        <td>Una combinación distinta de modalidad, tipo, subtipo, fase, estado y adjudicado.</td>
+                        <td>PK <code>contratacion_key</code>; FK entrante desde <code>fact_proceso.contratacion_key</code>.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><code>dim_proveedor</code></th>
+                        <td>Identificación y ubicación reportada del proveedor.</td>
+                        <td>Una combinación distinta de NIT, nombre, departamento y ciudad del proveedor.</td>
+                        <td>PK <code>proveedor_key</code>; FK entrante desde <code>fact_proceso.proveedor_key</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Medidas y reglas de agregación</h3>
+        <div class="tabla-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Medida</th>
+                        <th scope="col">Fórmula</th>
+                        <th scope="col">Unidad</th>
+                        <th scope="col">Agregación y regla</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Registros</th>
+                        <td><code>COUNT(*)</code></td>
+                        <td>Filas del hecho</td>
+                        <td>Aditiva entre grupos disjuntos; no equivale a procesos únicos.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Procesos únicos</th>
+                        <td><code>COUNT(DISTINCT id_del_proceso)</code></td>
+                        <td>IDs distintos</td>
+                        <td>No aditiva; se recalcula para cada selección y nivel de agrupación.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Valor adjudicado</th>
+                        <td><code>COALESCE(SUM(valor_total_adjudicacion_cop), 0)</code></td>
+                        <td>COP</td>
+                        <td>Suma por fila del hecho; no representa pagos ni ejecución y puede contar filas con un ID repetido.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Precio base promedio</th>
+                        <td><code>AVG(precio_base_cop)</code></td>
+                        <td>COP por fila con precio base</td>
+                        <td>No aditiva; se recalcula sobre los valores no nulos del grupo, sin promediar promedios.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="bloque">
+        <h2>Dimensiones, jerarquías y medidas</h2>
+        <div class="tabla-wrapper">
+            <table>
+                <thead>
+                    <tr><th>Elemento</th><th>Atributos y regla</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tiempo</td>
+                        <td>
+                            <code>fecha_de_publicacion_del</code>;
+                            año → trimestre → mes → día.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Territorio</td>
+                        <td>
+                            Ubicación reportada de la entidad;
+                            departamento → ciudad.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Entidad</td>
+                        <td>
+                            <code>codigo_entidad</code>, NIT, nombre y
+                            <code>ordenentidad</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Contratación</td>
+                        <td>
+                            Modalidad, tipo y subtipo de contrato, fase,
+                            estado y adjudicado.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Proveedor</td>
+                        <td>
+                            NIT, nombre y territorio del proveedor. El dato
+                            no definido se conserva como categoría fuente.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Registros</td>
+                        <td>
+                            <code>COUNT(*)</code> en el hecho; aditivo por
+                            grupos disjuntos, no es un conteo de procesos
+                            únicos.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Procesos únicos</td>
+                        <td>
+                            <code>COUNT(DISTINCT id_del_proceso)</code>;
+                            no aditivo, se recalcula al cambiar el nivel.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Valor adjudicado</td>
+                        <td>
+                            Suma por fila en COP; no representa pagos ni
+                            ejecución presupuestal.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Precio base promedio</td>
+                        <td>
+                            Suma de precio base / filas con valor; no se
+                            suman promedios, se recalcula numerador y
+                            denominador.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="bloque">
+        <h2>Operaciones OLAP</h2>
+        <ol class="etapa5-operaciones">
+            <li>
+                <strong>Drill-down:</strong> agrega detalle al agrupamiento.
+                Ejemplo: año → trimestre o departamento → ciudad.
+            </li>
+            <li>
+                <strong>Roll-up:</strong> vuelve al nivel superior y
+                recalcula conteos y sumas en ese nivel.
+            </li>
+            <li>
+                <strong>Slice:</strong> selecciona una categoría de un filtro,
+                por ejemplo una modalidad; el otro filtro no se aplica.
+            </li>
+            <li>
+                <strong>Dice:</strong> cruza dos filtros de dimensiones
+                distintas para limitar la consulta.
+            </li>
+            <li>
+                <strong>Pivot:</strong> invierte filas y columnas de la matriz;
+                las celdas se consultan de nuevo en el modelo.
+            </li>
+        </ol>
+    </section>
+
+    <section class="bloque">
+        <h2>Fuente, cobertura y limitaciones</h2>
+        <p>
+            Fuente: {{ resumen_etapa5.load.archivo_origen }}. El modelo se
+            cargó desde el archivo tratado, con cobertura de
+            {{ resumen_etapa5.dates.first_date }} a
+            {{ resumen_etapa5.dates.last_date }}. La unidad de hecho es cada
+            fila distinta del CSV después de excluir duplicados exactos.
+        </p>
+        <p class="etapa5-nota">
+            La muestra no es el universo de SECOP II. Se retienen registros
+            distintos con el mismo ID; sumas monetarias son sensibles a ese
+            grano y a extremos. "No Definido" no significa respuesta negativa.
+            Hay {{ resumen_etapa5.repeated_id_rows }} filas adicionales en
+            hechos que comparten un ID de proceso con otra fila.
+        </p>
+    </section>
+
+    <section class="bloque">
+        <h2>Conclusión y exploración</h2>
+        <p>
+            El modelo permite reagrupar las filas por tiempo, entidad,
+            territorio, contratación y proveedor, y evita tratar promedios o
+            conteos distintos como sumas. Los resultados siguen condicionados
+            por la muestra, la granularidad de origen y la completitud de los
+            atributos.
+        </p>
+    </section>
+    {% endif %}
+
+    <nav class="paginacion" aria-label="Navegación entre partes de la Etapa 5">
+        <a class="paginacion-link paginacion-link--siguiente"
+           href="{{ url_for('main.etapa5_explorar', slug=siguiente.slug) }}">
+            {{ siguiente.numero }} {{ siguiente.titulo }} →
+        </a>
+    </nav>
+</article>
+{% endblock %}

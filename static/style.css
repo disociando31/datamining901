@@ -180,7 +180,8 @@ a { color: inherit; text-decoration: none; }
     padding: 56px 32px 80px;
 }
 
-.portada-eyebrow {
+.portada-eyebrow,
+.etapa5-dashboard-eyebrow {
     font-family: var(--fuente-mono);
     color: var(--color-accent);
     font-size: 0.85rem;
@@ -271,10 +272,72 @@ a { color: inherit; text-decoration: none; }
     transform: translateY(-1px);
 }
 
-.botones-etapas {
+.botones-etapas,
+.etapa5-acciones {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
+}
+
+.etapa5-acciones {
+    gap: 9px;
+    margin-top: 16px;
+}
+
+.etapa5-acciones .boton-primario {
+    padding: 9px 14px;
+    border: 1px solid var(--color-accent);
+    font-family: var(--fuente-mono);
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.etapa5-acciones .boton-primario:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.etapa5-acciones .etapa5-operacion-activa {
+    background: var(--color-accent-strong);
+    box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 3px var(--color-accent);
+}
+
+.etapa5-ayuda-olap {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+    background: var(--color-surface-alt);
+    color: var(--color-text-muted);
+}
+
+.etapa5-ayuda-olap summary {
+    color: var(--color-accent);
+    cursor: pointer;
+    font-family: var(--fuente-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.etapa5-ayuda-olap ul {
+    display: grid;
+    gap: 8px;
+    margin: 12px 0 0;
+    padding-left: 20px;
+    line-height: 1.5;
+}
+
+.etapa5-ayuda-olap li strong { color: var(--color-text); }
+
+.etapa5-operacion-ayuda {
+    margin: 10px 0 0;
+    padding: 10px 12px;
+    border-left: 2px solid var(--color-amber);
+    background: var(--color-surface-alt);
+    color: var(--color-text-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
 }
 
 .boton-secundario {
@@ -303,7 +366,8 @@ a { color: inherit; text-decoration: none; }
 
 .ruta a:hover { color: var(--color-accent); }
 
-.selector-etapa {
+.selector-etapa,
+.etapa5-dashboard {
     margin-bottom: 36px;
     padding: 18px;
     background: var(--color-surface-alt);
@@ -311,7 +375,19 @@ a { color: inherit; text-decoration: none; }
     border-radius: var(--radio);
 }
 
-.selector-etapa-cabecera {
+.etapa5-dashboard {
+    display: grid;
+    gap: 20px;
+}
+
+.etapa5-dashboard .etapa5-dashboard-encabezado {
+    margin-bottom: 0;
+}
+
+.selector-etapa-cabecera,
+.etapa5-dashboard-encabezado,
+.etapa5-dashboard-card-heading,
+.etapa5-dashboard-progress-label {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -333,10 +409,98 @@ a { color: inherit; text-decoration: none; }
     text-transform: uppercase;
 }
 
-.selector-etapa-lista {
+.selector-etapa-lista,
+.etapa5-dashboard-kpis,
+.etapa5-dashboard-analytics,
+.etapa5-dashboard-utilities,
+.etapa5-dashboard-timeline-rings,
+.etapa5-star-dims,
+.etapa5-graficos,
+.etapa5-conocimientos,
+.etapa5-filtros {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
+}
+
+.etapa5-indicadores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.etapa5-star-dims {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(96px, auto));
+    gap: 12px;
+}
+
+.etapa5-star-dim:nth-child(1) { grid-column: 2; grid-row: 1; }
+.etapa5-star-dim:nth-child(2) { grid-column: 1; grid-row: 2; }
+.etapa5-star-dim:nth-child(3) { grid-column: 3; grid-row: 2; }
+.etapa5-star-fact { grid-column: 2; grid-row: 2; }
+.etapa5-star-dim:nth-child(5) { grid-column: 1; grid-row: 3; }
+.etapa5-star-dim:nth-child(6) { grid-column: 3; grid-row: 3; }
+
+.etapa5-dashboard-kpis,
+.etapa5-dashboard-timeline-rings {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.etapa5-dashboard-kpis {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.etapa5-dashboard-ring-card { grid-column: span 2; }
+
+.etapa5-dashboard-kpi-highlight,
+.etapa5-dashboard-progress { grid-column: span 3; }
+
+.etapa5-dashboard-analytics,
+.etapa5-dashboard-utilities,
+.etapa5-graficos,
+.etapa5-conocimientos,
+.etapa5-filtros {
+    gap: 16px;
+}
+
+.etapa5-graficos { margin-bottom: 20px; }
+.etapa5-conocimientos { margin-top: 18px; }
+.etapa5-dashboard-timeline { grid-column: 2; grid-row: 1; }
+.etapa5-dashboard-calendar { grid-column: 1 / -1; grid-row: 2; }
+
+.etapa5-filtros label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+    color: var(--color-text-muted);
+    font-family: var(--fuente-mono);
+    font-size: 0.82rem;
+}
+
+.etapa5-filtros select {
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+    background: var(--color-surface-alt);
+    color: var(--color-text);
+    font: inherit;
+}
+
+.etapa5-filtros select:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.etapa5-filtros label small {
+    color: var(--color-text-muted);
+    font-family: var(--fuente-texto);
+    font-size: 0.76rem;
+    line-height: 1.4;
 }
 
 .selector-etapa-link {
@@ -370,7 +534,8 @@ a { color: inherit; text-decoration: none; }
     font-size: 0.76rem;
 }
 
-.submenu-cabecera {
+.submenu-cabecera,
+.etapa5-dashboard-encabezado {
     display: flex;
     align-items: flex-start;
     gap: 20px;
@@ -387,27 +552,177 @@ a { color: inherit; text-decoration: none; }
     padding-top: 6px;
 }
 
-.submenu-cabecera h1 {
+.submenu-cabecera h1,
+.etapa5-dashboard-encabezado h2 {
     font-family: var(--fuente-display);
     font-size: 2rem;
     margin: 0 0 8px;
 }
 
-.submenu-resumen {
+.submenu-resumen,
+.etapa5-dashboard-encabezado > p,
+.etapa5-dashboard-subtitle,
+.etapa5-dashboard-card-copy {
     color: var(--color-text-muted);
     margin: 0;
     max-width: 60ch;
 }
 
-.bloque {
+.bloque,
+.etapa5-dashboard-card,
+.etapa5-indicador,
+.etapa5-grafico,
+.etapa5-conocimiento,
+.etapa5-star-dim,
+.etapa5-star-fact {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radio);
+}
+
+.bloque {
     padding: 24px 26px;
     margin-bottom: 20px;
 }
 
-.bloque h2 {
+.etapa5-grano {
+    margin-bottom: 20px;
+    padding: 22px 26px;
+    border: 1px solid var(--color-accent);
+    border-left-width: 4px;
+    border-radius: var(--radio);
+    background: var(--color-surface-alt);
+}
+
+.etapa5-grano h2 {
+    margin: 0 0 12px;
+    color: var(--color-accent);
+    font-family: var(--fuente-display);
+    font-size: 1.15rem;
+}
+
+.etapa5-grano p { margin: 8px 0 0; }
+.etapa5-grano strong { color: var(--color-amber); }
+
+.etapa5-diccionario .tabla-wrapper + h3 {
+    margin-top: 28px;
+}
+
+.etapa5-diccionario table { min-width: 760px; }
+.etapa5-diccionario td,
+.etapa5-diccionario th { vertical-align: top; }
+.etapa5-diccionario td { overflow-wrap: anywhere; }
+
+.etapa5-dashboard-card,
+.etapa5-indicador,
+.etapa5-grafico,
+.etapa5-conocimiento,
+.etapa5-star-dim,
+.etapa5-star-fact {
+    min-width: 0;
+    padding: 18px;
+    margin-bottom: 0;
+}
+
+.etapa5-grafico { padding: 20px; }
+
+.etapa5-star-dim,
+.etapa5-star-fact { padding: 14px; }
+
+.etapa5-star-dim,
+.etapa5-star-fact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+.etapa5-star-fact {
+    background: var(--color-surface-alt);
+    border-color: var(--color-accent);
+    text-align: center;
+}
+
+.etapa5-dashboard-kpis,
+.etapa5-dashboard-analytics,
+.etapa5-dashboard-utilities { align-items: stretch; }
+
+.etapa5-continuidad {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+    background: var(--color-surface-alt);
+}
+
+.etapa5-continuidad strong {
+    color: var(--color-amber);
+    font-family: var(--fuente-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.etapa5-continuidad p {
+    margin: 6px 0 0;
+    color: var(--color-text-muted);
+}
+
+.etapa5-conocimiento {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.etapa5-conocimiento p { margin: 0; }
+
+.etapa5-conocimiento .etapa5-conocimiento-dimensiones,
+.etapa5-conocimiento .etapa5-conocimiento-medidas {
+    color: var(--color-text-muted);
+    font-size: 0.88rem;
+}
+
+.etapa5-conocimiento .etapa5-conocimiento-contexto {
+    padding: 9px 12px;
+    border-left: 2px solid var(--color-accent);
+    background: var(--color-surface-alt);
+    color: var(--color-accent);
+    font-family: var(--fuente-mono);
+    font-size: 0.78rem;
+    overflow-wrap: anywhere;
+}
+
+.etapa5-indicador {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.etapa5-indicador > span,
+.etapa5-indicador small {
+    color: var(--color-text-muted);
+    font-size: 0.78rem;
+}
+
+.etapa5-indicador strong {
+    color: var(--color-accent);
+    font-family: var(--fuente-display);
+    font-size: clamp(1.15rem, 3vw, 1.65rem);
+    overflow-wrap: anywhere;
+}
+
+.etapa5-indicador strong.etapa5-indicador-valor--moneda {
+    font-size: clamp(0.9rem, 1.7vw, 1.25rem);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.35;
+}
+
+.bloque h2,
+.etapa5-dashboard-card h3,
+.etapa5-grafico h2,
+.etapa5-conocimiento h3,
+.etapa5-star-dim strong,
+.etapa5-star-fact strong {
     font-family: var(--fuente-mono);
     font-size: 0.95rem;
     text-transform: uppercase;
@@ -416,13 +731,71 @@ a { color: inherit; text-decoration: none; }
     margin: 0 0 12px;
 }
 
-.bloque-texto p {
+.bloque-texto p,
+.etapa5-dashboard-card p,
+.etapa5-grafico p,
+.etapa5-conocimiento p {
     white-space: pre-line;
     margin: 0;
     color: var(--color-text);
 }
 
-.tabla-wrapper { overflow-x: auto; }
+.tabla-wrapper,
+.etapa5-dashboard-chart-scroll,
+.etapa5-dashboard-calendar-scroll { overflow-x: auto; }
+
+.etapa5-barras {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.etapa5-barra { min-width: 0; }
+
+.etapa5-barra-cabecera {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 5px;
+    font-size: 0.82rem;
+}
+
+.etapa5-barra-etiqueta {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.etapa5-barra-valor {
+    flex: 0 0 auto;
+    font-family: var(--fuente-mono);
+    font-size: 0.78rem;
+}
+
+.etapa5-barra-pista {
+    display: block;
+    height: 9px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--color-border);
+}
+
+.etapa5-barra-relleno {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--color-accent);
+}
+
+.etapa5-barra-participacion {
+    display: block;
+    margin-top: 3px;
+    color: var(--color-text-muted);
+    font-family: var(--fuente-mono);
+    font-size: 0.7rem;
+}
 
 table {
     width: 100%;
@@ -471,11 +844,126 @@ table {
     margin: 0;
 }
 
-.captura-muestra img {
+.captura-muestra img,
+.etapa5-dashboard-line-chart {
     display: block;
     max-width: 100%;
     height: auto;
     border: 1px solid var(--color-border);
+}
+
+.etapa5-dashboard-ring {
+    position: relative;
+    display: grid;
+    width: 108px;
+    aspect-ratio: 1;
+    place-items: center;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: conic-gradient(var(--color-accent) var(--ring-value), var(--color-border) 0);
+}
+
+.etapa5-dashboard-ring::before {
+    position: absolute;
+    inset: 8px;
+    border-radius: inherit;
+    background: var(--color-surface);
+    content: "";
+}
+
+.etapa5-dashboard-ring span {
+    position: relative;
+    color: var(--color-accent);
+    font-family: var(--fuente-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.etapa5-dashboard-ring--secondary {
+    background: conic-gradient(var(--color-amber) var(--ring-value), var(--color-border) 0);
+}
+
+.etapa5-dashboard-ring--tertiary {
+    background: conic-gradient(var(--color-text-muted) var(--ring-value), var(--color-border) 0);
+}
+
+.etapa5-dashboard-ring-card { text-align: center; }
+
+.etapa5-dashboard-small-ring {
+    position: relative;
+    display: grid;
+    width: 76px;
+    aspect-ratio: 1;
+    place-items: center;
+    border-radius: 50%;
+    background: conic-gradient(var(--color-accent) var(--ring-value), var(--color-border) 0);
+}
+
+.etapa5-dashboard-small-ring::before {
+    position: absolute;
+    inset: 6px;
+    border-radius: inherit;
+    background: var(--color-surface);
+    content: "";
+}
+
+.etapa5-dashboard-small-ring span {
+    position: relative;
+    font-family: var(--fuente-mono);
+    font-size: 0.8rem;
+}
+
+.etapa5-dashboard-year {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+}
+
+.etapa5-dashboard-segments {
+    display: grid;
+    grid-template-columns: repeat(24, minmax(0, 1fr));
+    gap: 3px;
+    margin-top: 8px;
+}
+
+.etapa5-dashboard-segments span {
+    height: 8px;
+    border-radius: 999px;
+    background: var(--color-border);
+}
+
+.etapa5-dashboard-segments .is-active { background: var(--color-accent); }
+
+.etapa5-dashboard-line-chart { background: var(--color-surface); }
+
+.etapa5-chart-area { fill: url("#etapa5-area-gradient"); }
+
+.etapa5-chart-line {
+    fill: none;
+    stroke: url("#etapa5-line-gradient");
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2.5;
+}
+
+.etapa5-chart-gridline {
+    stroke: var(--color-border);
+    stroke-width: 1;
+}
+
+.etapa5-chart-axis-label {
+    fill: var(--color-text-muted);
+    font-family: var(--fuente-mono);
+    font-size: 10px;
+}
+
+.etapa5-chart-point {
+    fill: var(--color-accent);
+    stroke: var(--color-surface);
+    stroke-width: 1.5;
 }
 
 .captura-placeholder {
@@ -505,7 +993,10 @@ table {
     border: 0;
 }
 
-.powerbi-nota {
+.powerbi-nota,
+.etapa5-nota,
+.etapa5-seleccion,
+.etapa5-error {
     color: var(--color-text-muted);
     font-size: 0.9rem;
     line-height: 1.5;
@@ -590,6 +1081,13 @@ tbody tr:hover { background: rgba(79, 209, 197, 0.06); }
     border-top: 1px solid var(--color-border);
 }
 
+@media (max-width: 900px) {
+    .etapa5-dashboard-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .etapa5-dashboard-ring-card { grid-column: auto; }
+    .etapa5-dashboard-kpi-highlight,
+    .etapa5-dashboard-progress { grid-column: 1 / -1; }
+}
+
 /* --- Accesibilidad: foco visible con teclado --- */
 a:focus-visible,
 button:focus-visible {
@@ -609,9 +1107,32 @@ button:focus-visible {
     .portada-integrante,
     .portada-integrante:nth-child(2n) { border-right: none; }
     .portada-integrante:last-child { border-bottom: none; }
-    .selector-etapa-cabecera { align-items: flex-start; flex-direction: column; gap: 4px; }
-    .selector-etapa-lista { grid-template-columns: 1fr; }
-    .submenu-cabecera { flex-direction: column; gap: 8px; }
+    .selector-etapa-cabecera,
+    .etapa5-dashboard-card-heading,
+    .etapa5-dashboard-progress-label { align-items: flex-start; flex-direction: column; gap: 4px; }
+    .selector-etapa-lista,
+    .etapa5-dashboard-kpis,
+    .etapa5-dashboard-analytics,
+    .etapa5-dashboard-utilities,
+    .etapa5-dashboard-timeline-rings,
+    .etapa5-star-dims,
+    .etapa5-indicadores,
+    .etapa5-graficos,
+    .etapa5-conocimientos,
+    .etapa5-filtros { grid-template-columns: 1fr; }
+    .etapa5-dashboard-timeline-rings { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .etapa5-dashboard-ring-card,
+    .etapa5-dashboard-kpi-highlight,
+    .etapa5-dashboard-progress,
+    .etapa5-dashboard-calendar,
+    .etapa5-dashboard-timeline { grid-column: auto; grid-row: auto; }
+    .etapa5-star-dims { grid-template-rows: none; }
+    .etapa5-star-dims .etapa5-star-dim,
+    .etapa5-star-dims .etapa5-star-fact { grid-column: auto; grid-row: auto; }
+    .submenu-cabecera,
+    .etapa5-dashboard-encabezado { flex-direction: column; gap: 8px; }
+    .etapa5-acciones .boton-primario { flex: 1 1 140px; }
+    .etapa5-barra-cabecera { align-items: flex-start; }
     .paginacion { flex-direction: column; }
     .paginacion-link--siguiente { margin-left: 0; }
 }

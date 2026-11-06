@@ -1,0 +1,16 @@
+<nav class="selector-etapa" aria-label="Partes de la Etapa 5">
+    <div class="selector-etapa-cabecera">
+        <span class="selector-etapa-kicker">Navegación</span>
+        <h2>Partes de la Etapa 5</h2>
+    </div>
+    <div class="selector-etapa-lista">
+        {% for sm in submenus %}
+        <a class="selector-etapa-link {% if (etapa5_inicio and loop.first) or (submenu and sm.slug == submenu.slug) %}selector-etapa-link--activo{% endif %}"
+           href="{% if loop.first %}{{ url_for('main.etapa5') }}{% else %}{{ url_for('main.etapa5_explorar', slug=sm.slug) }}{% endif %}"
+           {% if (etapa5_inicio and loop.first) or (submenu and sm.slug == submenu.slug) %}aria-current="page"{% endif %}>
+            <span class="selector-etapa-numero">{{ sm.numero }}</span>
+            <span>{{ sm.titulo }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</nav>

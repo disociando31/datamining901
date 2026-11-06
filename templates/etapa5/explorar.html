@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block titulo %}Etapa 5 · {{ submenu.titulo }}{% endblock %}
+
+{% block encabezado %}
+<header class="topbar topbar-submenu">
+    <a href="{{ url_for('main.index') }}" class="boton-menu-principal">
+        Volver al menú
+    </a>
+    <h1 class="titulo-etapa">Etapa 5</h1>
+    <img class="imagen-header"
+         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSUWQEL99ngj85ApjDNi3nvYTSrTV12wZ8PVpvIP-8vQ&s"
+         alt="Imagen del proyecto de minería de datos">
+</header>
+{% endblock %}
+
+{% block contenido %}
+<article class="submenu-pagina etapa5-pagina"
+         data-etapa5-view="{{ submenu.slug }}"
+         data-api-url="{{ url_for('main.etapa5_api', slug=submenu.slug) }}">
+    <nav class="ruta" aria-label="Ruta de navegación">
+        <a href="{{ url_for('main.index') }}">Inicio</a>
+        <span>/</span>
+        <a href="{{ url_for('main.etapa5') }}">Etapa 5</a>
+        <span>/</span>
+        <span>{{ submenu.titulo }}</span>
+    </nav>
+
+    {% set indice_submenu = submenus.index(submenu) %}
+    {% if indice_submenu + 1 < submenus|length %}
+        {% set siguiente = submenus[indice_submenu + 1] %}
+    {% endif %}
+    {% set etapa5_inicio = false %}
+    {% include "etapa5/_nav.html" %}
+
+    <header class="submenu-cabecera">
+        <span class="submenu-cabecera-numero">{{ submenu.numero }}</span>
+        <div>
+            <h1>{{ submenu.titulo }}</h1>
+            <p class="submenu-resumen">{{ submenu.resumen }}</p>
+        </div>
+    </header>
+
+    <section class="bloque etapa5-pregunta">
+        <h2>Pregunta de análisis</h2>
+        <p>{{ view_config.question }}</p>
+        <p class="etapa5-nota">
+            Dimensiones: {{ view_config.dimensions|join(", ") }}.
+            Medidas disponibles: {{ view_config.measures|join("; ") }}.
+            Desagregación: {{ view_config.hierarchies|join(" ") }}
+        </p>
+        <div class="etapa5-continuidad">
+            <strong>Continuidad con la Etapa 4</strong>
+            <p>{{ view_config.continuity }}</p>
+        </div>
+    </section>
+
+    <section class="etapa5-indicadores"
+             data-role="indicators"
+             aria-label="Indicadores recalculados">
+        <p class="etapa5-cargando" role="status">Consultando el modelo SQLite…</p>
+    </section>
+
+    <section class="bloque etapa5-controles" aria-labelledby="etapa5-controles-titulo">
+        <h2 id="etapa5-controles-titulo">Filtros y operaciones OLAP</h2>
+        <div class="etapa5-filtros">
+            <label>
+                <span data-role="filter-one-label">Filtro de dimensión 1</span>
+                <select data-role="filter-one">
+                    <option value="">Todas las categorías</option>
+                </select>
+                <small data-role="filter-one-help">
+                    Limita los resultados a una categoría de esta dimensión.
+                </small>
+            </label>
+            <label>
+                <span data-role="filter-two-label">Filtro de dimensión 2</span>
+                <select data-role="filter-two">
+                    <option value="">Todas las categorías</option>
+                </select>
+                <small data-role="filter-two-help">
+                    Se combina con el primer filtro al usar Dice.
+                </small>
+            </label>
+        </div>
+        <details class="etapa5-ayuda-olap">
+            <summary>¿Qué hacen estos filtros y operaciones?</summary>
+            <ul>
+                <li><strong>Filtros:</strong> seleccionan categorías de dos dimensiones diferentes para limitar el conjunto consultado.</li>
+                <li><strong>Drill-down:</strong> baja un nivel de detalle en la jerarquía y recalcula los indicadores por ese nivel.</li>
+                <li><strong>Roll-up:</strong> sube al nivel anterior y vuelve a agrupar y calcular las medidas.</li>
+                <li><strong>Slice:</strong> aplica solo el primer filtro; el segundo no participa en esa consulta.</li>
+                <li><strong>Dice:</strong> combina ambos filtros; si eliges un valor en cada uno, se aplican simultáneamente.</li>
+                <li><strong>Pivot:</strong> intercambia las dimensiones de filas y columnas de la matriz. Conserva las selecciones, pero aplica ambos filtros (igual que Dice), por lo que el resultado puede variar frente a Slice.</li>
+            </ul>
+        </details>
+        <div class="etapa5-acciones" role="group" aria-label="Operaciones OLAP">
+            <button type="button" class="boton-primario" data-operation="drill-down">Drill-down</button>
+            <button type="button" class="boton-primario" data-operation="roll-up">Roll-up</button>
+            <button type="button" class="boton-primario" data-operation="slice">Slice · filtro 1</button>
+            <button type="button" class="boton-primario" data-operation="dice">Dice · dos filtros</button>
+            <button type="button" class="boton-primario" data-operation="pivot">Pivot · invertir matriz</button>
+        </div>
+        <p class="etapa5-seleccion" data-role="selection" aria-live="polite">
+            Selección activa: cargando…
+        </p>
+        <p class="etapa5-operacion-ayuda" data-role="operation-help" role="status" aria-live="polite">
+            La explicación de la operación seleccionada aparecerá aquí.
+        </p>
+        <p class="etapa5-error" data-role="error" role="alert" hidden></p>
+    </section>
+
+    <section class="etapa5-graficos" data-role="charts"
+             aria-label="Visualizaciones consultadas en SQLite">
+        <p class="etapa5-cargando" role="status">Las visualizaciones aparecerán cuando termine la consulta.</p>
+    </section>
+
+    <section class="bloque etapa5-matriz">
+        <h2>Matriz de cruce</h2>
+        <p class="etapa5-nota" data-role="matrix-caption">Cargando dimensiones de la matriz…</p>
+        <div class="tabla-wrapper" data-role="matrix">
+            <p class="etapa5-cargando" role="status">Consultando matriz…</p>
+        </div>
+    </section>
+
+    <section class="bloque">
+        <h2>Interpretación del corte</h2>
+        <p data-role="interpretation">Se calculará con el resultado actual.</p>
+        <div class="etapa5-conocimientos" data-role="insights">
+            <p class="etapa5-cargando" role="status">Consultando conocimientos…</p>
+        </div>
+        <h3>Limitación</h3>
+        <p data-role="limitation"></p>
+        <h3>Decisión sustentada</h3>
+        <p data-role="decision"></p>
+    </section>
+
+    <p class="etapa5-nota">
+        Fuente: SECOP II Nacional tratado. Las cifras, gráficos y matrices
+        se recalculan con consultas parametrizadas al modelo estrella.
+        Asociaciones descriptivas no implican causalidad ni demuestran
+        irregularidades.
+    </p>
+    {% if submenu.slug == 'temporal' %}
+    <p class="etapa5-nota">
+        En esta vista, los indicadores, gráficos y conocimientos se
+        restringen a los mismos pares mes-día observados en todos los años,
+        para que la comparación use fechas equivalentes.
+    </p>
+    {% endif %}
+
+    {% if siguiente is defined %}
+    <nav class="paginacion" aria-label="Navegación entre partes de la Etapa 5">
+        <a class="paginacion-link paginacion-link--siguiente"
+           href="{{ url_for('main.etapa5_explorar', slug=siguiente.slug) }}">
+            {{ siguiente.numero }} {{ siguiente.titulo }} →
+        </a>
+    </nav>
+    {% endif %}
+</article>
+<script src="{{ url_for('static', filename='etapa5.js') }}" defer></script>
+{% endblock %}
