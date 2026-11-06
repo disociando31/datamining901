@@ -5,3 +5,4 @@ venv/Scripts/activate.bat
 venv/Scripts/pythonw.exe
 venv/Scripts/pythonw.exe
 *.pyc
+data/etapa5.sqlite
