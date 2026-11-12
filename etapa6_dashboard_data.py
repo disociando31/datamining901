@@ -60,13 +60,12 @@ FLOW_HELP = {
  }
 }
 PAGINAS = {
- 'conocimiento-oculto':{'titulo':'Conocimiento oculto','eyebrow':'ETAPA 06 · VISIÓN GENERAL', 'resumen':'Predicción de adjudicación, perfiles de contratación y voces de comentaristas. Tres análisis, tres tipos distintos de evidencia.', 'tipo':'inicio'},
- 'aprendizaje-supervisado':{'titulo':'Aprendizaje supervisado','eyebrow':'01 · CLASIFICACIÓN', 'resumen':'¿Se puede anticipar la etiqueta adjudicado en los registros de SECOP II?', 'tipo':'supervisado','flujo':'supervisado'},
- 'aprendizaje-no-supervisado':{'titulo':'Aprendizaje no supervisado','eyebrow':'02 · CLUSTERING Y ANOMALÍAS','resumen':'¿Qué perfiles de contratación se repiten y qué registros presentan comportamientos inusuales?', 'tipo':'no_supervisado','flujo':'no_supervisado'},
- 'comentarios-youtube':{'titulo':'Comentarios de YouTube','eyebrow':'03 · MINERÍA DE TEXTO','resumen':'¿Qué preocupaciones, temas y reacciones expresan los comentaristas de videos relacionados con el proyecto?', 'tipo':'youtube','flujo':'youtube'},
- 'conclusiones-integradas':{'titulo':'Conclusiones integradas','eyebrow':'04 · SÍNTESIS DE EVIDENCIA','resumen':'Relación entre predicción, patrones estadísticos y percepciones expresadas en comentarios.', 'tipo':'conclusiones'},
- 'evidencias-y-entrega':{'titulo':'Evidencias y entrega','eyebrow':'05 · REPRODUCIBILIDAD','resumen':'Descarga de los flujos originales, resultados agregados y documentación de la entrega.', 'tipo':'evidencias'},
+ 'aprendizaje-supervisado':{'titulo':'Aprendizaje supervisado','eyebrow':'01 · CLASIFICACIÓN', 'resumen':'Pregunta, variables, validación, comparación de modelos y conclusiones de la predicción de adjudicado.', 'tipo':'supervisado','flujo':'supervisado'},
+ 'aprendizaje-no-supervisado':{'titulo':'Aprendizaje no supervisado','eyebrow':'02 · CLUSTERING Y ANOMALÍAS','resumen':'Pregunta, variables, selección de K, seis perfiles y anomalías estadísticas.', 'tipo':'no_supervisado','flujo':'no_supervisado'},
+ 'comentarios-youtube':{'titulo':'Conocimiento oculto en YouTube','eyebrow':'03 · MINERÍA DE TEXTO','resumen':'Pregunta, extracción con API, minería de texto, temas y conclusiones de los comentarios.', 'tipo':'youtube','flujo':'youtube'},
 }
 NAVEGACION = [
- ('conocimiento-oculto','Resumen'),('aprendizaje-supervisado','Supervisado'),('aprendizaje-no-supervisado','No supervisado'),('comentarios-youtube','YouTube'),('conclusiones-integradas','Conclusiones'),('evidencias-y-entrega','Archivos')
+ ('aprendizaje-supervisado','Supervisado'),
+ ('aprendizaje-no-supervisado','No supervisado'),
+ ('comentarios-youtube','Comentarios YouTube'),
 ]

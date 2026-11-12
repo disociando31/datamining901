@@ -1,4 +1,9 @@
+"""Extracción reproducible de comentarios públicos de primer nivel desde YouTube Data API v3.
 
+Uso en Colab: instalar requests/pandas si hace falta, configurar API_KEY con
+`from google.colab import userdata; API_KEY = userdata.get('YOUTUBE_API_KEY')`
+o configurar variable de entorno YOUTUBE_API_KEY. No subir claves al repositorio.
+"""
 import json
 import os
 from datetime import datetime, timezone

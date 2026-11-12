@@ -212,7 +212,7 @@ def etapa5_api(slug):
 @main_bp.route("/etapa6")
 def etapa6():
     """Redirige a la introducción de Conocimiento Oculto."""
-    return redirect(url_for("main.etapa6_submenu", slug="conocimiento-oculto"))
+    return redirect(url_for("main.etapa6_submenu", slug="aprendizaje-supervisado"))
 
 
 @main_bp.route("/etapa6/<string:slug>")
