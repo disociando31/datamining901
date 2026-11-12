@@ -1,0 +1,7 @@
+﻿Cluster,Filas,Porcentaje_muestra,Silhouette_medio_exportado,Anomalias_filas,Tasa_anomalias_pct,Modalidad_principal,Modalidad_principal_pct,Tipo_principal,Tipo_principal_pct,Orden_principal,Orden_principal_pct,Media_precio_estandarizado,Media_proveedores_estandarizada,Media_respuestas_original,Adjudicado_si_filas
+C1,1141,28.52,0.732,2,0.18,Contratación directa,100.0,Prestación de servicios,96.4,Territorial,98.2,-0.022,-0.182,0.0,0
+C2,1006,25.15,0.563,28,2.78,Contratación régimen especial,68.8,Prestación de servicios,62.3,Territorial,97.5,-0.016,-0.065,0.77,183
+C3,656,16.4,0.734,0,0.0,Contratación directa,100.0,Prestación de servicios,95.0,Nacional,100.0,-0.022,-0.182,0.0,0
+C4,511,12.78,0.681,6,1.17,Contratación régimen especial,96.5,Decreto 092 de 2017,100.0,Territorial,75.3,-0.019,-0.169,0.09,17
+C5,48,1.2,0.616,44,91.67,Contratación régimen especial (con ofertas),68.8,Suministros,31.2,Territorial,83.3,0.679,6.221,46.19,47
+C6,638,15.95,0.502,93,14.58,Contratación régimen especial,37.8,Prestación de servicios,34.0,Nacional,98.9,0.003,0.146,2.96,228
