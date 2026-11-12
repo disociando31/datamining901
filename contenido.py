@@ -44,4 +44,9 @@ ETAPAS = [
         "nombre": "Etapa 5",
         "activa": True,
     },
+        {
+        "slug": "etapa-6",
+        "nombre": "Etapa 6",
+        "activa": True,
+    },
 ]

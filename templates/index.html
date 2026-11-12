@@ -5,14 +5,10 @@
 {% block contenido %}
 <section class="portada">
     <p class="portada-eyebrow">Contratación publica y ejecución de recursos</p>
-
     <h1 class="portada-titulo">Minería de Datos</h1>
     <p class="portada-subtitulo">{{ info.titulo }}</p>
-
     <div class="portada-tabla">
-        <div class="portada-tabla-cabecera">
-            <span>Integrantes del equipo</span>
-        </div>
+        <div class="portada-tabla-cabecera"><span>Integrantes del equipo</span></div>
         <div class="portada-integrantes-grid">
             {% for participante in info.participantes %}
             <div class="portada-integrante">
@@ -22,23 +18,13 @@
             {% endfor %}
         </div>
     </div>
-
     <div class="botones-etapas" aria-label="Etapas del proyecto">
-        <a href="{{ url_for('main.etapa1_submenu', slug='problema-y-contexto') }}" class="boton-primario">
-            Ver Etapa 1 →
-        </a>
-        <a href="{{ url_for('main.etapa2_submenu', slug='objetivo-de-la-etapa') }}" class="boton-primario">
-            Ver Etapa 2 →
-        </a>
-        <a href="{{ url_for('main.etapa3_submenu', slug='objetivos') }}" class="boton-primario">
-            Ver Etapa 3 →
-        </a>
-        <a href="{{ url_for('main.etapa4_submenu', slug='conocimiento-evidente') }}" class="boton-primario">
-            Ver Etapa 4  →
-        </a>
-        <a href="{{ url_for('main.etapa5') }}" class="boton-primario">
-            Ver Etapa 5 →
-        </a>
+        <a href="{{ url_for('main.etapa1_submenu', slug='problema-y-contexto') }}" class="boton-primario">Ver Etapa 1 →</a>
+        <a href="{{ url_for('main.etapa2_submenu', slug='objetivo-de-la-etapa') }}" class="boton-primario">Ver Etapa 2 →</a>
+        <a href="{{ url_for('main.etapa3_submenu', slug='objetivos') }}" class="boton-primario">Ver Etapa 3 →</a>
+        <a href="{{ url_for('main.etapa4_submenu', slug='conocimiento-evidente') }}" class="boton-primario">Ver Etapa 4 →</a>
+        <a href="{{ url_for('main.etapa5') }}" class="boton-primario">Ver Etapa 5 →</a>
+        <a href="{{ url_for('main.etapa6') }}" class="boton-primario">Etapa 6 — Conocimiento Oculto →</a>
     </div>
 </section>
 {% endblock %}
