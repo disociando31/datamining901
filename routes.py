@@ -1,11 +1,19 @@
 # -*- coding: utf-8 -*-
 
-
 import os
 import sqlite3
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
-from flask import Blueprint, abort, current_app, jsonify, render_template, request
+from flask import (
+    Blueprint,
+    abort,
+    current_app,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 
 from contenido import INFO_PROYECTO, ETAPAS
 from submenu import SUBMENUS_ETAPA_1
@@ -13,6 +21,7 @@ from submenu2 import SUBMENUS_ETAPA_2
 from submenu3 import SUBMENUS_ETAPA_3
 from submenu4 import SUBMENUS_ETAPA_4
 from submenu5 import SUBMENUS_ETAPA_5
+from submenu6 import SUBMENUS_ETAPA_6
 from queries.olap import InvalidSelection, VIEWS, overview_data, view_data
 
 
@@ -32,20 +41,10 @@ POWERBI_EMBED_URL_DEFAULT = (
 
 
 def _buscar_submenu(slug: str, lista_submenus: list) -> dict | None:
-    """
-    Busca dentro de una lista de submenús el que tenga el slug indicado.
-
-    Args:
-        slug: Identificador único del submenú.
-        lista_submenus: Lista de diccionarios de submenús.
-
-    Returns:
-        El diccionario del submenú encontrado o None.
-    """
+    """Busca el diccionario correspondiente al slug dentro de una lista."""
     for submenu in lista_submenus:
         if submenu["slug"] == slug:
             return submenu
-
     return None
 
 
@@ -81,39 +80,16 @@ def _url_pagina_power_bi(page_name: str) -> str | None:
 
 @main_bp.route("/")
 def index():
-    """
-    Página de inicio del proyecto.
-    """
-    return render_template(
-        "index.html",
-        info=INFO_PROYECTO
-    )
+    """Página de inicio del proyecto."""
+    return render_template("index.html", info=INFO_PROYECTO)
 
 
 @main_bp.route("/etapa1/<string:slug>")
 def etapa1_submenu(slug):
-    """
-    Muestra una sección específica de la Etapa 1.
-
-    El slug identifica uno de los ocho apartados obligatorios:
-        1. Problema y contexto
-        2. Pregunta principal y preguntas secundarias
-        3. Necesidades de información
-        4. Fuentes de datos
-        5. Dataset
-        6. Diccionario de datos
-        7. Calidad inicial de los datos
-        8. Limitaciones y consideraciones
-    """
-
-    submenu = _buscar_submenu(
-        slug,
-        SUBMENUS_ETAPA_1
-    )
-
+    """Muestra una sección específica de la Etapa 1."""
+    submenu = _buscar_submenu(slug, SUBMENUS_ETAPA_1)
     if submenu is None:
         abort(404)
-
     return render_template(
         "submenu.html",
         submenu=submenu,
@@ -125,18 +101,10 @@ def etapa1_submenu(slug):
 
 @main_bp.route("/etapa2/<string:slug>")
 def etapa2_submenu(slug):
-    """
-    Muestra una sección específica de la Etapa 2.
-    """
-
-    submenu = _buscar_submenu(
-        slug,
-        SUBMENUS_ETAPA_2
-    )
-
+    """Muestra una sección específica de la Etapa 2."""
+    submenu = _buscar_submenu(slug, SUBMENUS_ETAPA_2)
     if submenu is None:
         abort(404)
-
     return render_template(
         "submenu.html",
         submenu=submenu,
@@ -148,18 +116,10 @@ def etapa2_submenu(slug):
 
 @main_bp.route("/etapa3/<string:slug>")
 def etapa3_submenu(slug):
-    """
-    Muestra una sección específica de la Etapa 3.
-    """
-
-    submenu = _buscar_submenu(
-        slug,
-        SUBMENUS_ETAPA_3
-    )
-
+    """Muestra una sección específica de la Etapa 3."""
+    submenu = _buscar_submenu(slug, SUBMENUS_ETAPA_3)
     if submenu is None:
         abort(404)
-
     return render_template(
         "submenu.html",
         submenu=submenu,
@@ -171,21 +131,13 @@ def etapa3_submenu(slug):
 
 @main_bp.route("/etapa4/<string:slug>")
 def etapa4_submenu(slug):
-    """
-    Muestra una sección específica de la Etapa 4.
-    """
-
+    """Muestra una sección específica de la Etapa 4."""
     if slug == "objetivos":
         slug = "conocimiento-evidente"
 
-    submenu = _buscar_submenu(
-        slug,
-        SUBMENUS_ETAPA_4
-    )
-
+    submenu = _buscar_submenu(slug, SUBMENUS_ETAPA_4)
     if submenu is None:
         abort(404)
-
     return render_template(
         "submenu.html",
         submenu=submenu,
@@ -254,12 +206,31 @@ def etapa5_api(slug):
     return jsonify(payload)
 
 
+# ETAPA 6 — CONOCIMIENTO OCULTO
+@main_bp.route("/etapa6")
+def etapa6():
+    """Redirige a la introducción de Conocimiento Oculto."""
+    return redirect(url_for("main.etapa6_submenu", slug="conocimiento-oculto"))
+
+
+@main_bp.route("/etapa6/<string:slug>")
+def etapa6_submenu(slug):
+    """Muestra uno de los seis submenús de Conocimiento Oculto."""
+    submenu = _buscar_submenu(slug, SUBMENUS_ETAPA_6)
+    if submenu is None:
+        abort(404)
+    return render_template(
+        "submenu.html",
+        submenu=submenu,
+        etapa_numero=6,
+        submenus=SUBMENUS_ETAPA_6,
+        ruta_endpoint="main.etapa6_submenu",
+    )
+
+
 @main_bp.app_context_processor
 def inyectar_datos_globales():
-    """
-    Hace disponibles los datos globales en todas las plantillas.
-    """
-
+    """Hace disponibles los datos globales en todas las plantillas."""
     return {
         "etapas": ETAPAS,
         "submenus_etapa_1": SUBMENUS_ETAPA_1,
@@ -267,17 +238,12 @@ def inyectar_datos_globales():
         "submenus_etapa_3": SUBMENUS_ETAPA_3,
         "submenus_etapa_4": SUBMENUS_ETAPA_4,
         "submenus_etapa_5": SUBMENUS_ETAPA_5,
+        "submenus_etapa_6": SUBMENUS_ETAPA_6,
         "info_proyecto": INFO_PROYECTO,
     }
 
 
 @main_bp.app_errorhandler(404)
 def pagina_no_encontrada(error):
-    """
-    Página personalizada para errores 404.
-    """
-
-    return render_template(
-        "404.html",
-        info=INFO_PROYECTO
-    ), 404
+    """Página personalizada para errores 404."""
+    return render_template("404.html", info=INFO_PROYECTO), 404
