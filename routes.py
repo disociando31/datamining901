@@ -13,6 +13,7 @@ from flask import (
     render_template,
     request,
     url_for,
+    send_from_directory,
 )
 
 from contenido import INFO_PROYECTO, ETAPAS
@@ -22,6 +23,7 @@ from submenu3 import SUBMENUS_ETAPA_3
 from submenu4 import SUBMENUS_ETAPA_4
 from submenu5 import SUBMENUS_ETAPA_5
 from submenu6 import SUBMENUS_ETAPA_6
+from etapa6_dashboard_data import PAGINAS, NAVEGACION, METRICAS, CLUSTERS, SILHOUETTE, YOUTUBE_TERMS
 from queries.olap import InvalidSelection, VIEWS, overview_data, view_data
 
 
@@ -210,7 +212,7 @@ def etapa5_api(slug):
 @main_bp.route("/etapa6")
 def etapa6():
     """Redirige a la introducción de Conocimiento Oculto."""
-    return redirect(url_for("main.etapa6_submenu", slug="conocimiento-oculto"))
+    return redirect(url_for("main.etapa6_submenu", slug="aprendizaje-supervisado"))
 
 
 @main_bp.route("/etapa6/<string:slug>")
@@ -219,13 +221,55 @@ def etapa6_submenu(slug):
     submenu = _buscar_submenu(slug, SUBMENUS_ETAPA_6)
     if submenu is None:
         abort(404)
+    pagina = PAGINAS.get(slug)
+    if pagina is None:
+        abort(404)
     return render_template(
-        "submenu.html",
-        submenu=submenu,
+        "etapa6/dashboard.html",
+        pagina=pagina,
+        slug_actual=slug,
+        navegacion=NAVEGACION,
+        metricas=METRICAS,
+        clusters=CLUSTERS,
+        silhouette=SILHOUETTE,
+        terminos=YOUTUBE_TERMS,
         etapa_numero=6,
         submenus=SUBMENUS_ETAPA_6,
-        ruta_endpoint="main.etapa6_submenu",
     )
+
+
+@main_bp.route("/etapa6/archivo/<string:nombre>")
+def etapa6_archivo(nombre):
+    """Descarga exclusiva de flujos .ows de la Etapa 6."""
+    permitidos = {
+        "orange_supervisado.ows",
+        "orange_no_supervisado.ows",
+        "orange_youtube.ows",
+    }
+    if nombre not in permitidos:
+        abort(404)
+    carpeta = os.path.join(current_app.root_path, "etapa6", "workflows")
+    return send_from_directory(carpeta, nombre, as_attachment=True)
+
+
+@main_bp.route("/etapa6/resultado/<string:nombre>")
+def etapa6_resultado(nombre):
+    """Descarga de resúmenes; no expone el dataset completo."""
+    permitidos = {
+        "resumen_clusters_muestra_4000.csv",
+        "anomalias_muestra_4000.csv",
+    }
+    if nombre not in permitidos:
+        abort(404)
+    carpeta = os.path.join(current_app.root_path, "etapa6", "resultados")
+    return send_from_directory(carpeta, nombre, as_attachment=True)
+
+
+@main_bp.route("/etapa6/recurso/script-youtube")
+def etapa6_script_youtube():
+    """Descarga el código de recolección sin publicar claves privadas."""
+    carpeta = os.path.join(current_app.root_path, "etapa6")
+    return send_from_directory(carpeta, "youtube_extraer_comentarios.py", as_attachment=True)
 
 
 @main_bp.app_context_processor
