@@ -1,2 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# Preserve exact bytes of hashed analytical inputs, results and language resources.
+etapa6/datos/** -text -whitespace
+etapa6/resultados/verificados/*.csv -text -whitespace
+etapa6/recursos/*.txt -text -whitespace
+
+etapa6/*.pdf binary

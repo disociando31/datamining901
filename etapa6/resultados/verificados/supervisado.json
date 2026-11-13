@@ -1,0 +1,62 @@
+{
+  "filas": 9792,
+  "positivos": 709,
+  "clase_positiva": "Si",
+  "folds": 10,
+  "semilla_folds": 42,
+  "imputacion": "Media/moda aprendida dentro de cada partición de entrenamiento",
+  "modelo_seleccionado": "Tree",
+  "criterio": "Mayor F1 de Si; desempate MCC y nombre",
+  "baseline_accuracy_siempre_No": 0.927593954248366,
+  "metricas": [
+    {
+      "nombre": "Naive Bayes",
+      "n": 9792,
+      "auc": 0.9837675491358724,
+      "accuracy": 0.9580269607843137,
+      "precision": 0.6545643153526971,
+      "recall": 0.8899858956276445,
+      "f1": 0.7543335325762104,
+      "mcc": 0.742304435913363,
+      "matriz": {
+        "tn": 8750,
+        "fp": 333,
+        "fn": 78,
+        "tp": 631
+      }
+    },
+    {
+      "nombre": "Tree",
+      "n": 9792,
+      "auc": 0.9860638769834128,
+      "accuracy": 0.96875,
+      "precision": 0.7683089214380826,
+      "recall": 0.8138222849083215,
+      "f1": 0.7904109589041096,
+      "mcc": 0.7739163024845601,
+      "matriz": {
+        "tn": 8909,
+        "fp": 174,
+        "fn": 132,
+        "tp": 577
+      }
+    },
+    {
+      "nombre": "Random Forest",
+      "n": 9792,
+      "auc": 0.9883251884710925,
+      "accuracy": 0.9682393790849673,
+      "precision": 0.7718579234972678,
+      "recall": 0.7968970380818053,
+      "f1": 0.7841776544066621,
+      "mcc": 0.7671546330843082,
+      "matriz": {
+        "tn": 8916,
+        "fp": 167,
+        "fn": 144,
+        "tp": 565
+      }
+    }
+  ],
+  "limitacion": "Validación interna retrospectiva; selección sobre los mismos folds no equivale a prueba externa ni demuestra predicción futura."
+}

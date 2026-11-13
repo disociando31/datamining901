@@ -1,1 +1,37 @@
-{"supervisado": {"CSV File Import": "Importación del CSV. La captura de Test & Score registra 1.000.000 de filas.", "Select Columns": "Separación de adjudicado como objetivo y predictores; revisar que no haya variables posteriores al resultado.", "Impute": "Tratamiento de valores faltantes antes de evaluar los algoritmos.", "Naive Bayes": "Clasificador probabilístico basado en la independencia condicional de predictores.", "Tree": "Árbol interpretable. En el archivo .ows: profundidad máxima 10, mínimo por hoja 10.", "Random Forest": "Bosque de 10 árboles en el archivo .ows; mínimo 5 para dividir nodo.", "Test and Score": "Validación cruzada estratificada de 10 particiones; métricas para la clase Sí.", "Confusion Matrix": "Errores por clase y aciertos del clasificador seleccionado; la imagen no identifica inequívocamente cuál es.", "ROC Analysis": "Capacidad de separar positivos y negativos para diferentes umbrales.", "Rank": "Ranking auxiliar de predictores. No demuestra causalidad.", "Tree Viewer": "Visualización de reglas del árbol entrenado.", "Distributions": "Distribución de clases y variables.", "Data Table": "Inspección de registros."}, "no_supervisado": {"CSV File Import": "Registros de SECOP II.", "Select Columns": "Cinco características del proceso; adjudicado fuera de Features.", "Impute": "Tratamiento de faltantes.", "Continuize": "One-hot en categorías y estandarización de variables numéricas.", "k-Means": "En el .ows adjunto: K fijo 6, KMeans++, 10 reinicios, 300 iteraciones, normalización interna desactivada.", "Outliers": "Isolation Forest dentro del widget Outliers; produce la etiqueta de anomalía estadística.", "Data Sampler": "En el .ows recibido está conectado DESPUÉS de K-Means para alimentar Silhouette Plot. No confundir con muestreo previo al entrenamiento.", "Silhouette Plot": "Evaluación de separación sobre datos muestreados; evitar aplicarla al millón de filas por memoria.", "Distributions": "Tamaño de clusters o distribución de anomalías.", "Box Plot": "Diferencias entre características de los perfiles.", "Scatter Plot": "Representación de anomalías en una proyección de dos variables.", "Data Table": "Consulta de procesos con sus indicadores y asignaciones."}, "youtube": {"CSV File Import": "CSV de comentarios recolectados. No se incluye aún el script de extracción API.", "Corpus": "Define la columna textual para el análisis.", "Corpus Viewer": "Inspección de los comentarios y su calidad.", "Preprocess Text": "Tokenización y limpieza; requiere documentar idioma y filtros efectivos.", "Word Cloud": "Términos más visibles, evidencia exploratoria insuficiente por sí sola.", "Sentiment Analysis": "Evaluación de sentimiento. El .ows fija español; validar el método con ejemplos.", "Data Table": "36 comentarios analizados en la captura recibida.", "Distributions": "Distribución del subconjunto seleccionado.", "Bag of Words": "Vectorización por conteos de tokens.", "Topic Modelling": "Se muestran 10 temas mediante LSI en la captura. Se observa bastante ruido.", "Distances": "Distancias entre comentarios vectorizados.", "Hierarchical Clustering": "Agrupamiento jerárquico de los comentarios; captura con enlace promedio."}}
+{
+  "supervisado": {
+    "File": "Entrada supervisado.tab: roles y tipos explícitos; un registro por proceso. No contiene variables posteriores al trámite.",
+    "Preprocess": "Media/moda. Su salida Preprocessor entra en Test and Score; no recibe el dataset completo para imputarlo antes de evaluar.",
+    "Naive Bayes": "Naive Bayes de Orange; discretización aprendida en cada entrenamiento.",
+    "Tree": "Profundidad 10, mínimo 10 por hoja y 20 para dividir; mayoría suficiente 95%.",
+    "Random Forest": "10 árboles, mínimo 5 para dividir, max_features=sqrt, semilla 0.",
+    "Test and Score": "Validación estratificada de 10 particiones, semilla 42. Seleccionar clase Si para comparar F1, precisión y recall.",
+    "Confusion Matrix": "Seleccionar Tree. Los JSON exportan una matriz identificada para cada modelo.",
+    "ROC Analysis": "Comparar discriminación por probabilidades; un AUC alto no demuestra predicción futura.",
+    "Data Table": "Inspección de los procesos de entrada; el ID es meta y no se usa para entrenar."
+  },
+  "no_supervisado": {
+    "File": "Muestra exacta de 4.000 procesos tomada antes del ajuste; adjudicado ausente. log1p de precio/proveedores ya calculado.",
+    "Impute": "Media/moda ajustada solo sobre la muestra de clustering.",
+    "Continuize": "Estandarización de numéricas y one-hot completo de categorías; metas originales no determinan grupos.",
+    "k-Means": "K=3 seleccionado tras comparar K=2 a 8; K-Means++, 10 reinicios, 300 iteraciones, semilla 0 y normalización interna desactivada.",
+    "Silhouette Plot": "Evaluar cohesión/separación con distancia euclidiana sobre los mismos 4.000 procesos.",
+    "Data Table": "Consultar clusters; los IDs originales permiten contrastar las asignaciones exportadas.",
+    "Distributions": "Seleccionar Cluster para consultar tamaños, o una variable para comparar perfiles.",
+    "Box Plot": "Comparar precio/participación por grupo; interpretar originales y no solo valores estandarizados."
+  },
+  "youtube": {
+    "File": "Entrada local privada de 35 comentarios revisados. El corpus no se publica; cada revisor debe contar con una copia autorizada y ejecutar la preparación.",
+    "Corpus": "La columna texto se convierte en contenido. Corpus en español; no usar likes/fechas como Features.",
+    "Corpus Viewer": "Revisar ejemplos, pertinencia y posibles datos personales antes de publicar.",
+    "Preprocess Text": "Minúsculas, limpieza HTML/URLs, regex de palabras, stopwords españolas congeladas y unigramas.",
+    "Word Cloud": "Exploración de términos; no demuestra temas, hechos ni sentimiento por sí sola.",
+    "Sentiment Analysis": "Multilingual Sentiment es: 12 positivos, 10 negativos y 13 puntuaciones cero. Coincidencia limitada con etiquetas asistidas; no se interpreta como validación humana.",
+    "Data Table": "Consultar todas las puntuaciones, no solo una selección manual.",
+    "Distributions": "Recibe directamente el corpus con sentimiento, sin depender de una selección en Data Table.",
+    "Bag of Words": "TF-IDF (Count + IDF) y normalización L2 para reducir efectos de frecuencia y longitud.",
+    "Topic Modelling": "Tres componentes LSI exploratorios, interpretados mediante términos y ejemplos. Signos/pesos pueden variar en GUI; no son polaridad de sentimiento.",
+    "Distances": "Distancia coseno entre vectores TF-IDF normalizados.",
+    "Hierarchical Clustering": "Enlace promedio. El corte de máximo tres grupos devuelve uno por empates: no sustenta segmentación temática."
+  }
+}

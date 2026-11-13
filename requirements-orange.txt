@@ -1,0 +1,13 @@
+# Entorno separado de la aplicación Flask. Python 3.12 en la ejecución documentada.
+Orange3==3.41.0
+PyQt6==6.12.0
+numpy==2.5.4
+scipy==1.18.1
+scikit-learn==1.9.1
+pandas==3.1.1
+requests==2.34.2
+Orange3-Text==1.16.3
+gensim==4.4.0
+nltk==3.10.4
+orange-widget-base==4.29.0
+orange-canvas-core==0.2.10
