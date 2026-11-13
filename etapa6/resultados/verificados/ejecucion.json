@@ -1,0 +1,16 @@
+{
+  "fecha_ejecucion_utc": "2026-11-13T19:33:05.572534+00:00",
+  "python": "3.12.14",
+  "orange": "3.41.0",
+  "sklearn": "1.9.1",
+  "numpy": "2.5.4",
+  "metodo": "API de Orange; mismas clases y parámetros que los flujos corregidos",
+  "sha256_entradas": {
+    "clustering_4000.tab": "53834f731735e576f21df9304443d4264f7384f47e1ff9877c614106a21d7e8a",
+    "supervisado.tab": "a89a943ef85844f3f8a200688034ceb3b39a3cdb0172411c4f77b4ccef452d28"
+  },
+  "sha256_codigo": {
+    "reproducir.py": "98e70c2e54e10d3615925204a7fb58e8311753e97ad174ea8436f1244b0e5d92",
+    "preparar_datos.py": "e01fa9607cd0bd28c11d7432910517eb1b931c37a909e4d65086aafcde87261e"
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "filas": 35,
+  "orange_text": "1.16.3",
+  "preprocesamiento": "Minúsculas, HTML/URLs, regex \\w+, stopwords NLTK español congeladas, unigramas; sin stemming ni traducción.",
+  "vectorizacion": "Count con IDF y normalización L2 (TF-IDF).",
+  "terminos": [
+    {
+      "termino": "video",
+      "frecuencia": 8
+    },
+    {
+      "termino": "solo",
+      "frecuencia": 6
+    },
+    {
+      "termino": "gracias",
+      "frecuencia": 5
+    },
+    {
+      "termino": "si",
+      "frecuencia": 5
+    },
+    {
+      "termino": "corrupción",
+      "frecuencia": 5
+    },
+    {
+      "termino": "gobierno",
+      "frecuencia": 5
+    },
+    {
+      "termino": "petro",
+      "frecuencia": 4
+    },
+    {
+      "termino": "gobiernos",
+      "frecuencia": 4
+    },
+    {
+      "termino": "duque",
+      "frecuencia": 4
+    },
+    {
+      "termino": "control",
+      "frecuencia": 3
+    },
+    {
+      "termino": "muchas",
+      "frecuencia": 3
+    },
+    {
+      "termino": "contratación",
+      "frecuencia": 3
+    },
+    {
+      "termino": "educativo",
+      "frecuencia": 3
+    },
+    {
+      "termino": "bueno",
+      "frecuencia": 3
+    },
+    {
+      "termino": "vídeo",
+      "frecuencia": 3
+    },
+    {
+      "termino": "años",
+      "frecuencia": 3
+    },
+    {
+      "termino": "excelente",
+      "frecuencia": 3
+    },
+    {
+      "termino": "asi",
+      "frecuencia": 3
+    },
+    {
+      "termino": "ejemplos",
+      "frecuencia": 3
+    },
+    {
+      "termino": "hablar",
+      "frecuencia": 2
+    }
+  ],
+  "lsi": [
+    {
+      "componente": 1,
+      "terminos": [
+        {
+          "termino": "gracias",
+          "peso": -0.4574960431935097
+        },
+        {
+          "termino": "video",
+          "peso": -0.41042906919813926
+        },
+        {
+          "termino": "excelente",
+          "peso": -0.369862625035943
+        },
+        {
+          "termino": "maravilloso",
+          "peso": -0.20420757311517296
+        },
+        {
+          "termino": "muchísimas",
+          "peso": -0.2042075731151729
+        },
+        {
+          "termino": "muchas",
+          "peso": -0.15103479186490448
+        },
+        {
+          "termino": "vídeo",
+          "peso": -0.11828747899095492
+        },
+        {
+          "termino": "ver",
+          "peso": -0.10939409560859412
+        },
+        {
+          "termino": "sesgado",
+          "peso": -0.10339551128369168
+        },
+        {
+          "termino": "complejo",
+          "peso": -0.10023758349803193
+        }
+      ]
+    },
+    {
+      "componente": 2,
+      "terminos": [
+        {
+          "termino": "gobiernos",
+          "peso": -0.24574831077106918
+        },
+        {
+          "termino": "petro",
+          "peso": -0.2201285380869676
+        },
+        {
+          "termino": "solo",
+          "peso": -0.21103168935931163
+        },
+        {
+          "termino": "gracias",
+          "peso": 0.20933910802210168
+        },
+        {
+          "termino": "gobierno",
+          "peso": -0.17908431284534249
+        },
+        {
+          "termino": "ejemplos",
+          "peso": -0.1664285017612785
+        },
+        {
+          "termino": "asi",
+          "peso": -0.16372162010942476
+        },
+        {
+          "termino": "educativo",
+          "peso": -0.15970229374071634
+        },
+        {
+          "termino": "escándalos",
+          "peso": -0.15776048216156618
+        },
+        {
+          "termino": "usaron",
+          "peso": -0.15776048216156618
+        }
+      ]
+    },
+    {
+      "componente": 3,
+      "terminos": [
+        {
+          "termino": "videos",
+          "peso": -0.5151231884425431
+        },
+        {
+          "termino": "vacía",
+          "peso": -0.38751474051322843
+        },
+        {
+          "termino": "silla",
+          "peso": -0.38751474051322843
+        },
+        {
+          "termino": "gustan",
+          "peso": -0.3282661956289526
+        },
+        {
+          "termino": "buenos",
+          "peso": -0.3116058139354846
+        },
+        {
+          "termino": "seria",
+          "peso": -0.15309407180093884
+        },
+        {
+          "termino": "pensé",
+          "peso": -0.1530940718009388
+        },
+        {
+          "termino": "hahaha",
+          "peso": -0.15309407180093879
+        },
+        {
+          "termino": "sobreentiende",
+          "peso": -0.15309407180093876
+        },
+        {
+          "termino": "favoritismo",
+          "peso": -0.15309407180093876
+        }
+      ]
+    }
+  ],
+  "semilla_lsi_api": 42,
+  "nota_lsi": "Los componentes no son temas verificados; sus signos pueden invertirse. La GUI no expone la semilla de SVD.",
+  "jerarquico": {
+    "distancia": "Coseno sobre TF-IDF normalizado L2",
+    "enlace": "average",
+    "corte_exploratorio": 3,
+    "tamanos": {
+      "1": 35
+    },
+    "limitacion": "Corte exploratorio sin optimizar; corpus pequeño y vocabulario escaso en comentarios cortos."
+  },
+  "sentimiento": {
+    "metodo": "Multilingual Sentiment, español, diccionarios congelados",
+    "puntuacion": "Balance de palabras positivas/negativas del lexicón; cero no significa neutralidad verificada.",
+    "positivos": 12,
+    "negativos": 10,
+    "cero": 13,
+    "comparables_asistidos": 23,
+    "coincidencias_signo": 11,
+    "limite_validacion": "Contraste con etiquetas asistidas por IA; excluye mixtos e inciertos. No es accuracy humana ni validación independiente."
+  },
+  "sha256_recursos": {
+    "negative_words_es.txt": "add84d834cbb86cd885c137ce9b2aa1db55951e08f16331365ef818ad9c16e83",
+    "positive_words_es.txt": "4fe51142ad659966e70d21d44fda572613a98f77eded166dd62a079fba084796",
+    "stopwords_es.txt": "6125eadf28ba664a60bf4296147bcbd40b80be93670056fdb229960ac15e2310"
+  },
+  "sha256_corpus": "e4e0b12ea8afbb4cc1a28b99ec9d2536bc90565be58c8ef6f2842dfb97e893a6"
+}

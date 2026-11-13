@@ -1,0 +1,17 @@
+{
+  "fecha_extraccion_utc": null,
+  "total_api_previo_al_csv": null,
+  "filas_csv_recibido": 36,
+  "origen": "CSV aportado por el equipo en esta revisión; sin registro original de ejecución de la API",
+  "video_id": "M6aisVwwkEg",
+  "video_url": "https://youtu.be/M6aisVwwkEg",
+  "atribucion_video": "Asociación con el flujo histórico y su documentación; el CSV recibido no contiene video_id.",
+  "criterio_historico_seleccion": "No documentado; relación temática declarada en el proyecto, sin búsqueda original registrada.",
+  "sha256_archivo_recibido": "1c17056d9b2e642670e05f46fcf03dcc5160194c515d488a364c06f119ff66f4",
+  "sha256_csv_original": "80ba9e1464233b830e32be163ae34a68d2232af549561bd53adbfaf3dc95f372",
+  "alcance_hash": "sha256_csv_original refiere a la entrada anonimizada reproducible; sha256_archivo_recibido identifica el original aportado.",
+  "anonimizacion": "Se normalizaron espacios y se sustituyó una mención nominal al editor por su función. No se publican autores.",
+  "fecha_min_publicacion_utc": "2025-11-10T12:26:53Z",
+  "fecha_max_publicacion_utc": "2026-10-11T04:09:53Z",
+  "restricciones": "Solo se verifica el archivo recibido. No se puede inferir el total disponible ni la fecha o paginación de su extracción histórica."
+}
