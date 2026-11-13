@@ -1,1 +1,350 @@
-{"supervisado": {"nodes": [{"id": "0", "name": "Select Columns", "x": 242.0, "y": 163.0}, {"id": "1", "name": "Impute", "x": 353.0, "y": 157.0}, {"id": "2", "name": "Naive Bayes", "x": 551.0, "y": 119.0}, {"id": "3", "name": "Random Forest", "x": 599.0, "y": 312.0}, {"id": "4", "name": "Tree", "x": 681.0, "y": -2.0}, {"id": "5", "name": "Confusion Matrix", "x": 912.0, "y": 42.0}, {"id": "6", "name": "ROC Analysis", "x": 909.0, "y": 277.0}, {"id": "7", "name": "Test and Score", "x": 621.0, "y": 181.0}, {"id": "8", "name": "CSV File Import", "x": 123.0, "y": -18.0}, {"id": "9", "name": "Distributions", "x": 339.0, "y": 315.0}, {"id": "10", "name": "Rank", "x": 440.0, "y": 11.0}, {"id": "11", "name": "Tree Viewer", "x": 768.0, "y": -77.0}, {"id": "12", "name": "Data Table", "x": 467.0, "y": 261.0}], "edges": [{"source": "0", "target": "1", "sourcePort": "Data", "targetPort": "Data"}, {"source": "2", "target": "7", "sourcePort": "Learner", "targetPort": "Learner"}, {"source": "4", "target": "7", "sourcePort": "Learner", "targetPort": "Learner"}, {"source": "3", "target": "7", "sourcePort": "Learner", "targetPort": "Learner"}, {"source": "7", "target": "6", "sourcePort": "Evaluation Results", "targetPort": "Evaluation Results"}, {"source": "7", "target": "5", "sourcePort": "Evaluation Results", "targetPort": "Evaluation Results"}, {"source": "1", "target": "7", "sourcePort": "Data", "targetPort": "Data"}, {"source": "8", "target": "0", "sourcePort": "Data", "targetPort": "Data"}, {"source": "0", "target": "9", "sourcePort": "Data", "targetPort": "Data"}, {"source": "1", "target": "10", "sourcePort": "Data", "targetPort": "Data"}, {"source": "4", "target": "11", "sourcePort": "Model", "targetPort": "Tree"}, {"source": "0", "target": "12", "sourcePort": "Data", "targetPort": "Data"}, {"source": "1", "target": "4", "sourcePort": "Data", "targetPort": "Data"}]}, "no_supervisado": {"nodes": [{"id": "0", "name": "CSV File Import", "x": 117.0, "y": 218.0}, {"id": "1", "name": "Select Columns", "x": 237.0, "y": 213.0}, {"id": "2", "name": "Impute", "x": 378.0, "y": 223.0}, {"id": "3", "name": "Continuize", "x": 510.0, "y": 222.0}, {"id": "4", "name": "k-Means", "x": 794.0, "y": 617.0}, {"id": "5", "name": "Data Table", "x": 1069.0, "y": 452.0}, {"id": "6", "name": "Distributions", "x": 1064.0, "y": 330.0}, {"id": "7", "name": "Box Plot", "x": 1085.0, "y": 662.0}, {"id": "8", "name": "Outliers", "x": 736.0, "y": 126.0}, {"id": "9", "name": "Data Table", "x": 867.0, "y": 76.0}, {"id": "10", "name": "Scatter Plot", "x": 898.0, "y": 208.0}, {"id": "11", "name": "Data Sampler", "x": 1002.0, "y": 562.0}, {"id": "12", "name": "Silhouette Plot", "x": 1123.0, "y": 554.0}, {"id": "13", "name": "Distributions", "x": 958.0, "y": 137.0}], "edges": [{"source": "0", "target": "1", "sourcePort": "Data", "targetPort": "Data"}, {"source": "1", "target": "2", "sourcePort": "Data", "targetPort": "Data"}, {"source": "2", "target": "3", "sourcePort": "Data", "targetPort": "Data"}, {"source": "4", "target": "5", "sourcePort": "Data", "targetPort": "Data"}, {"source": "4", "target": "6", "sourcePort": "Data", "targetPort": "Data"}, {"source": "4", "target": "7", "sourcePort": "Data", "targetPort": "Data"}, {"source": "3", "target": "8", "sourcePort": "Data", "targetPort": "Data"}, {"source": "3", "target": "4", "sourcePort": "Data", "targetPort": "Data"}, {"source": "8", "target": "9", "sourcePort": "Outliers", "targetPort": "Data"}, {"source": "8", "target": "10", "sourcePort": "Data", "targetPort": "Data"}, {"source": "4", "target": "11", "sourcePort": "Data", "targetPort": "Data"}, {"source": "11", "target": "12", "sourcePort": "Data Sample", "targetPort": "Data"}, {"source": "8", "target": "13", "sourcePort": "Data", "targetPort": "Data"}]}, "youtube": {"nodes": [{"id": "0", "name": "Corpus", "x": 300.0, "y": 150.0}, {"id": "1", "name": "CSV File Import", "x": 150.0, "y": 150.0}, {"id": "2", "name": "Corpus Viewer", "x": 428.0, "y": -43.0}, {"id": "3", "name": "Preprocess Text", "x": 486.0, "y": 157.0}, {"id": "4", "name": "Word Cloud", "x": 636.0, "y": -26.0}, {"id": "5", "name": "Sentiment Analysis", "x": 625.0, "y": 159.0}, {"id": "6", "name": "Data Table", "x": 755.0, "y": 161.0}, {"id": "7", "name": "Distributions", "x": 867.0, "y": -15.0}, {"id": "8", "name": "Bag of Words", "x": 605.0, "y": 286.0}, {"id": "9", "name": "Topic Modelling", "x": 753.0, "y": 276.0}, {"id": "10", "name": "Distances", "x": 751.0, "y": 397.0}, {"id": "11", "name": "Hierarchical Clustering", "x": 867.0, "y": 399.0}], "edges": [{"source": "1", "target": "0", "sourcePort": "Data", "targetPort": "Data"}, {"source": "0", "target": "2", "sourcePort": "Corpus", "targetPort": "Corpus"}, {"source": "0", "target": "3", "sourcePort": "Corpus", "targetPort": "Corpus"}, {"source": "3", "target": "4", "sourcePort": "Corpus", "targetPort": "Corpus"}, {"source": "3", "target": "5", "sourcePort": "Corpus", "targetPort": "Corpus"}, {"source": "5", "target": "6", "sourcePort": "Corpus", "targetPort": "Data"}, {"source": "6", "target": "7", "sourcePort": "Selected Data", "targetPort": "Data"}, {"source": "3", "target": "8", "sourcePort": "Corpus", "targetPort": "Corpus"}, {"source": "8", "target": "9", "sourcePort": "Corpus", "targetPort": "Corpus"}, {"source": "8", "target": "10", "sourcePort": "Corpus", "targetPort": "Data"}, {"source": "10", "target": "11", "sourcePort": "Distances", "targetPort": "Distances"}]}}
+{
+  "supervisado": {
+    "nodes": [
+      {
+        "id": "0",
+        "name": "File",
+        "x": 0,
+        "y": 160
+      },
+      {
+        "id": "1",
+        "name": "Preprocess",
+        "x": 190,
+        "y": 0
+      },
+      {
+        "id": "2",
+        "name": "Naive Bayes",
+        "x": 210,
+        "y": 100
+      },
+      {
+        "id": "3",
+        "name": "Tree",
+        "x": 210,
+        "y": 230
+      },
+      {
+        "id": "4",
+        "name": "Random Forest",
+        "x": 210,
+        "y": 360
+      },
+      {
+        "id": "5",
+        "name": "Test and Score",
+        "x": 460,
+        "y": 160
+      },
+      {
+        "id": "6",
+        "name": "Confusion Matrix",
+        "x": 700,
+        "y": 80
+      },
+      {
+        "id": "7",
+        "name": "ROC Analysis",
+        "x": 700,
+        "y": 230
+      },
+      {
+        "id": "8",
+        "name": "Data Table",
+        "x": 0,
+        "y": 360
+      }
+    ],
+    "edges": [
+      {
+        "source": "0",
+        "target": "5",
+        "sourcePort": "Data",
+        "targetPort": "Data"
+      },
+      {
+        "source": "1",
+        "target": "5",
+        "sourcePort": "Preprocessor",
+        "targetPort": "Preprocessor"
+      },
+      {
+        "source": "2",
+        "target": "5",
+        "sourcePort": "Learner",
+        "targetPort": "Learner"
+      },
+      {
+        "source": "3",
+        "target": "5",
+        "sourcePort": "Learner",
+        "targetPort": "Learner"
+      },
+      {
+        "source": "4",
+        "target": "5",
+        "sourcePort": "Learner",
+        "targetPort": "Learner"
+      },
+      {
+        "source": "5",
+        "target": "6",
+        "sourcePort": "Evaluation Results",
+        "targetPort": "Evaluation Results"
+      },
+      {
+        "source": "5",
+        "target": "7",
+        "sourcePort": "Evaluation Results",
+        "targetPort": "Evaluation Results"
+      },
+      {
+        "source": "0",
+        "target": "8",
+        "sourcePort": "Data",
+        "targetPort": "Data"
+      }
+    ]
+  },
+  "no_supervisado": {
+    "nodes": [
+      {
+        "id": "0",
+        "name": "File",
+        "x": 0,
+        "y": 160
+      },
+      {
+        "id": "1",
+        "name": "Impute",
+        "x": 190,
+        "y": 160
+      },
+      {
+        "id": "2",
+        "name": "Continuize",
+        "x": 380,
+        "y": 160
+      },
+      {
+        "id": "3",
+        "name": "k-Means",
+        "x": 580,
+        "y": 160
+      },
+      {
+        "id": "4",
+        "name": "Silhouette Plot",
+        "x": 800,
+        "y": 0
+      },
+      {
+        "id": "5",
+        "name": "Data Table",
+        "x": 800,
+        "y": 160
+      },
+      {
+        "id": "6",
+        "name": "Distributions",
+        "x": 800,
+        "y": 300
+      },
+      {
+        "id": "7",
+        "name": "Box Plot",
+        "x": 580,
+        "y": 360
+      }
+    ],
+    "edges": [
+      {
+        "source": "0",
+        "target": "1",
+        "sourcePort": "Data",
+        "targetPort": "Data"
+      },
+      {
+        "source": "1",
+        "target": "2",
+        "sourcePort": "Data",
+        "targetPort": "Data"
+      },
+      {
+        "source": "2",
+        "target": "3",
+        "sourcePort": "Data",
+        "targetPort": "Data"
+      },
+      {
+        "source": "3",
+        "target": "4",
+        "sourcePort": "Data",
+        "targetPort": "Data"
+      },
+      {
+        "source": "3",
+        "target": "5",
+        "sourcePort": "Data",
+        "targetPort": "Data"
+      },
+      {
+        "source": "3",
+        "target": "6",
+        "sourcePort": "Data",
+        "targetPort": "Data"
+      },
+      {
+        "source": "3",
+        "target": "7",
+        "sourcePort": "Data",
+        "targetPort": "Data"
+      }
+    ]
+  },
+  "youtube": {
+    "nodes": [
+      {
+        "id": "0",
+        "name": "Corpus",
+        "x": 300,
+        "y": 150
+      },
+      {
+        "id": "1",
+        "name": "File",
+        "x": 150,
+        "y": 150
+      },
+      {
+        "id": "2",
+        "name": "Corpus Viewer",
+        "x": 428.0,
+        "y": -43.0
+      },
+      {
+        "id": "3",
+        "name": "Preprocess Text",
+        "x": 486.0,
+        "y": 157.0
+      },
+      {
+        "id": "4",
+        "name": "Word Cloud",
+        "x": 636.0,
+        "y": -26.0
+      },
+      {
+        "id": "5",
+        "name": "Sentiment Analysis",
+        "x": 625.0,
+        "y": 159.0
+      },
+      {
+        "id": "6",
+        "name": "Data Table",
+        "x": 755.0,
+        "y": 161.0
+      },
+      {
+        "id": "7",
+        "name": "Distributions",
+        "x": 867.0,
+        "y": -15.0
+      },
+      {
+        "id": "8",
+        "name": "Bag of Words",
+        "x": 605.0,
+        "y": 286.0
+      },
+      {
+        "id": "9",
+        "name": "Topic Modelling",
+        "x": 753.0,
+        "y": 276.0
+      },
+      {
+        "id": "10",
+        "name": "Distances",
+        "x": 751.0,
+        "y": 397.0
+      },
+      {
+        "id": "11",
+        "name": "Hierarchical Clustering",
+        "x": 867.0,
+        "y": 399.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "1",
+        "target": "0",
+        "sourcePort": "Data",
+        "targetPort": "Data"
+      },
+      {
+        "source": "0",
+        "target": "2",
+        "sourcePort": "Corpus",
+        "targetPort": "Corpus"
+      },
+      {
+        "source": "0",
+        "target": "3",
+        "sourcePort": "Corpus",
+        "targetPort": "Corpus"
+      },
+      {
+        "source": "3",
+        "target": "4",
+        "sourcePort": "Corpus",
+        "targetPort": "Corpus"
+      },
+      {
+        "source": "3",
+        "target": "5",
+        "sourcePort": "Corpus",
+        "targetPort": "Corpus"
+      },
+      {
+        "source": "5",
+        "target": "6",
+        "sourcePort": "Corpus",
+        "targetPort": "Data"
+      },
+      {
+        "source": "5",
+        "target": "7",
+        "sourcePort": "Corpus",
+        "targetPort": "Data"
+      },
+      {
+        "source": "3",
+        "target": "8",
+        "sourcePort": "Corpus",
+        "targetPort": "Corpus"
+      },
+      {
+        "source": "8",
+        "target": "9",
+        "sourcePort": "Corpus",
+        "targetPort": "Corpus"
+      },
+      {
+        "source": "8",
+        "target": "10",
+        "sourcePort": "Corpus",
+        "targetPort": "Data"
+      },
+      {
+        "source": "10",
+        "target": "11",
+        "sourcePort": "Distances",
+        "targetPort": "Distances"
+      }
+    ]
+  }
+}
