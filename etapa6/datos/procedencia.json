@@ -1,0 +1,48 @@
+{
+  "fuente": "dataset/processed/secop_ii_nacional.csv",
+  "sha256_fuente": "0b6810c8ba8735245170d9e40e2f773c37442b49295b2f353a068efb059a33ed",
+  "filas_fuente": 10000,
+  "procesos_distintos": 9792,
+  "filas_excluidas_por_ambiguedad": 0,
+  "procesos_excluidos_por_ambiguedad": 0,
+  "filas_repetidas_con_mismos_predictores_retiradas": 208,
+  "procesos_sin_objetivo_valido": 0,
+  "filas_supervisado": 9792,
+  "distribucion_objetivo": {
+    "No": 9083,
+    "Si": 709
+  },
+  "predictores_supervisado": [
+    "departamento_entidad",
+    "ordenentidad",
+    "modalidad_de_contratacion",
+    "tipo_de_contrato",
+    "unidad_de_duracion",
+    "precio_base",
+    "duracion",
+    "numero_de_lotes"
+  ],
+  "faltantes_por_predictor": {
+    "unidad_de_duracion": 8,
+    "tipo_de_contrato": 33,
+    "departamento_entidad": 694
+  },
+  "filas_clustering": 4000,
+  "semilla_muestra": 42,
+  "predictores_clustering": [
+    "log_precio_base",
+    "log_proveedores_unicos_con",
+    "modalidad_de_contratacion",
+    "tipo_de_contrato",
+    "ordenentidad"
+  ],
+  "transformacion_clustering": "log1p de precio_base y proveedores_unicos_con; conserva originales como metas para interpretar.",
+  "alcance": "Nueva ejecución sobre el CSV versionado; no reproduce la captura histórica del millón ni los antiguos 4.000 casos.",
+  "limitacion_temporal": "Instantánea retrospectiva. Se excluyen campos posteriores al trámite; no hay versiones de los campos al publicar ni seguimiento final para comprobar adjudicación futura.",
+  "sesgo_muestra_fuente": "construir_dataset.py toma cuotas anuales/mensuales y ordena por fecha ascendente; no es una muestra aleatoria nacional.",
+  "archivos": {
+    "clustering_4000.tab": "53834f731735e576f21df9304443d4264f7384f47e1ff9877c614106a21d7e8a",
+    "muestra_clustering_ids.csv": "e1c906ea82d7a613aff5d6602a1dc7848e81abd93b5cd823f4d9a603a7ed3ba5",
+    "supervisado.tab": "a89a943ef85844f3f8a200688034ceb3b39a3cdb0172411c4f77b4ccef452d28"
+  }
+}

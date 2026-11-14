@@ -70,3 +70,14 @@ promedios. Las comparaciones temporales usan los mismos pares de mes y día
 observados en todos los años comparados; tanto sus indicadores como sus
 gráficos usan ese corte equivalente. Los resultados son descriptivos y no
 implican causalidad.
+
+## Etapa 6: Conocimiento Oculto
+
+La rama incorpora una ejecución reproducible sobre el CSV versionado:
+9.792 procesos únicos para supervisado y una nueva muestra de 4.000 para
+clustering. Las cifras históricas del millón no se usan como resultados de esos
+CSV. Ver [procedimiento, parámetros y limitaciones](etapa6/REPRODUCIR.md).
+Los datos de entrada, hashes y resultados están en `etapa6/datos/` y
+`etapa6/resultados/verificados/`. Del texto se publican solo resultados agregados y conteos de limpieza; el corpus
+y las etiquetas individuales permanecen locales y requieren acceso autorizado;
+la fecha histórica de extracción no se deduce de la fecha de publicación.

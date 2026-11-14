@@ -23,7 +23,7 @@ from submenu3 import SUBMENUS_ETAPA_3
 from submenu4 import SUBMENUS_ETAPA_4
 from submenu5 import SUBMENUS_ETAPA_5
 from submenu6 import SUBMENUS_ETAPA_6
-from etapa6_dashboard_data import PAGINAS, NAVEGACION, METRICAS, CLUSTERS, SILHOUETTE, YOUTUBE_TERMS
+from etapa6_dashboard_data import PAGINAS, NAVEGACION, datos_dashboard
 from queries.olap import InvalidSelection, VIEWS, overview_data, view_data
 
 
@@ -229,10 +229,7 @@ def etapa6_submenu(slug):
         pagina=pagina,
         slug_actual=slug,
         navegacion=NAVEGACION,
-        metricas=METRICAS,
-        clusters=CLUSTERS,
-        silhouette=SILHOUETTE,
-        terminos=YOUTUBE_TERMS,
+        **datos_dashboard(),
         etapa_numero=6,
         submenus=SUBMENUS_ETAPA_6,
     )
@@ -254,7 +251,7 @@ def etapa6_archivo(nombre):
 
 @main_bp.route("/etapa6/resultado/<string:nombre>")
 def etapa6_resultado(nombre):
-    """Descarga de resúmenes; no expone el dataset completo."""
+    """Antecedentes históricos de 4.000 filas; no corresponden al ajuste nuevo."""
     permitidos = {
         "resumen_clusters_muestra_4000.csv",
         "anomalias_muestra_4000.csv",
@@ -263,6 +260,27 @@ def etapa6_resultado(nombre):
         abort(404)
     carpeta = os.path.join(current_app.root_path, "etapa6", "resultados")
     return send_from_directory(carpeta, nombre, as_attachment=True)
+
+
+@main_bp.route('/etapa6/reproducible/<string:nombre>')
+def etapa6_reproducible(nombre):
+    """Lista cerrada de evidencias públicas. Nunca sirve carpetas privadas."""
+    rutas = {
+        'procedencia.json': ('etapa6/datos', 'procedencia.json'),
+        'REPRODUCIR.md': ('etapa6', 'REPRODUCIR.md'),
+        'supervisado.json': ('etapa6/resultados/verificados', 'supervisado.json'),
+        'clustering.json': ('etapa6/resultados/verificados', 'clustering.json'),
+        'ejecucion.json': ('etapa6/resultados/verificados', 'ejecucion.json'),
+        'predicciones_fuera_de_muestra.csv': ('etapa6/resultados/verificados', 'predicciones_fuera_de_muestra.csv'),
+        'asignaciones_clustering_4000.csv': ('etapa6/resultados/verificados', 'asignaciones_clustering_4000.csv'),
+        'youtube_texto.json': ('etapa6/resultados/verificados', 'youtube_texto.json'),
+        'limpieza.json': ('etapa6/datos/youtube', 'limpieza.json'),
+        'informe_tecnico_borrador.pdf': ('etapa6', 'informe_tecnico_borrador.pdf'),
+    }
+    if nombre not in rutas:
+        abort(404)
+    carpeta, archivo = rutas[nombre]
+    return send_from_directory(os.path.join(current_app.root_path, carpeta), archivo, as_attachment=True)
 
 
 @main_bp.route("/etapa6/recurso/script-youtube")

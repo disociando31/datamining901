@@ -6,3 +6,11 @@ venv/Scripts/pythonw.exe
 venv/Scripts/pythonw.exe
 *.pyc
 data/etapa5.sqlite
+.venv/
+__pycache__/
+.env
+.env.*
+etapa6/datos/youtube/privado/
+etapa6/datos/youtube/revision.csv
+
+.venv-orange/

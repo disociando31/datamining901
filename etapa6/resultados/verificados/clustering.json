@@ -1,0 +1,194 @@
+{
+  "filas": 4000,
+  "k": 3,
+  "silhouette": 0.6087973774664815,
+  "comparacion": [
+    {
+      "k": 2,
+      "score": 0.5967223957867366
+    },
+    {
+      "k": 3,
+      "score": 0.6087973774664815
+    },
+    {
+      "k": 4,
+      "score": 0.3815777392405505
+    },
+    {
+      "k": 5,
+      "score": 0.40862443018325517
+    },
+    {
+      "k": 6,
+      "score": 0.4644516663318086
+    },
+    {
+      "k": 7,
+      "score": 0.5154076975800351
+    },
+    {
+      "k": 8,
+      "score": 0.5267356291406281
+    }
+  ],
+  "sensibilidad_sin_log": [
+    {
+      "k": 2,
+      "score": 0.9711115293498152,
+      "tamanos": [
+        1,
+        3999
+      ]
+    },
+    {
+      "k": 3,
+      "score": 0.35316201751706117,
+      "tamanos": [
+        1,
+        1847,
+        2152
+      ]
+    },
+    {
+      "k": 4,
+      "score": 0.3634690578500998,
+      "tamanos": [
+        1,
+        2,
+        1491,
+        2506
+      ]
+    },
+    {
+      "k": 5,
+      "score": 0.39349546727390666,
+      "tamanos": [
+        1,
+        2,
+        173,
+        1910,
+        1914
+      ]
+    },
+    {
+      "k": 6,
+      "score": 0.4585504248748692,
+      "tamanos": [
+        1,
+        2,
+        114,
+        1080,
+        1271,
+        1532
+      ]
+    },
+    {
+      "k": 7,
+      "score": 0.5403765177265595,
+      "tamanos": [
+        1,
+        2,
+        111,
+        585,
+        846,
+        1043,
+        1412
+      ]
+    },
+    {
+      "k": 8,
+      "score": 0.5831486168702622,
+      "tamanos": [
+        1,
+        2,
+        53,
+        337,
+        763,
+        902,
+        933,
+        1009
+      ]
+    }
+  ],
+  "clusters": [
+    {
+      "id": "C1",
+      "n": 138,
+      "silhouette": 0.5474029239790262,
+      "perfil": "Solicitud de información a los Proveedores · No · Nacional",
+      "modas": {
+        "modalidad_de_contratacion": {
+          "valor": "Solicitud de información a los Proveedores",
+          "porcentaje": 72.46376811594203
+        },
+        "tipo_de_contrato": {
+          "valor": "No",
+          "porcentaje": 63.76811594202898
+        },
+        "ordenentidad": {
+          "valor": "Nacional",
+          "porcentaje": 65.94202898550725
+        }
+      },
+      "precio_mediano_cop": 0.0,
+      "proveedores_mediana": 0.0,
+      "proveedores_media": 1.144927536231884
+    },
+    {
+      "id": "C2",
+      "n": 3674,
+      "silhouette": 0.6209682725379467,
+      "perfil": "Contratación directa · Prestación de servicios · Territorial",
+      "modas": {
+        "modalidad_de_contratacion": {
+          "valor": "Contratación directa",
+          "porcentaje": 48.44855743059336
+        },
+        "tipo_de_contrato": {
+          "valor": "Prestación de servicios",
+          "porcentaje": 71.14861186717474
+        },
+        "ordenentidad": {
+          "valor": "Territorial",
+          "porcentaje": 64.39847577572128
+        }
+      },
+      "precio_mediano_cop": 13225000.0,
+      "proveedores_mediana": 0.0,
+      "proveedores_media": 0.031573217201959713
+    },
+    {
+      "id": "C3",
+      "n": 188,
+      "silhouette": 0.41601315453406457,
+      "perfil": "Mínima cuantía · Prestación de servicios · Nacional",
+      "modas": {
+        "modalidad_de_contratacion": {
+          "valor": "Mínima cuantía",
+          "porcentaje": 64.36170212765957
+        },
+        "tipo_de_contrato": {
+          "valor": "Prestación de servicios",
+          "porcentaje": 32.97872340425532
+        },
+        "ordenentidad": {
+          "valor": "Nacional",
+          "porcentaje": 59.57446808510638
+        }
+      },
+      "precio_mediano_cop": 47500000.0,
+      "proveedores_mediana": 4.0,
+      "proveedores_media": 6.127659574468085
+    }
+  ],
+  "semilla_kmeans": 0,
+  "parametros": {
+    "init": "k-means++",
+    "n_init": 10,
+    "max_iter": 300
+  },
+  "preparacion": "log1p de precio y proveedores; media/moda; z-score solo numéricas; one-hot completo de categorías; distancia euclidiana",
+  "evaluacion": "Silhouette euclidiano exacto sobre los 4.000 casos. adjudicado no está en el archivo.",
+  "limitacion": "K óptimo solo entre 2 y 8; sensible a extremos, escala y peso de categorías. No demuestra riesgo o fraude."
+}
